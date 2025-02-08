@@ -19,7 +19,7 @@ elif [ "$BiosOrUefi" = '32' ]
 then
 	echo "You are using a UEFI system that can only use systemd-boot or grub"
 else
-    BiosOrUefi = '32'
+    BiosOrUefi='32'
     echo "You are using a BIOS system"
 fi
 
@@ -93,7 +93,7 @@ echo "Done. Proceeding with Arch Linux installation."
 
 ### Needs to install amd or intel microcode
 ### INSTALL LIST AND ARCH CHROOT ###
-pacstrap -K /mnt base linux linux-firmware man-db man-pages texinfo vi vim eza networkmanager bat alacritty kitty xorg xorg-xinit ntp feh picom lf sudo fastfetch ufw
+pacstrap -K /mnt base linux linux-firmware man-db man-pages texinfo vi vim eza networkmanager bat alacritty kitty sudo fastfetch ufw
 
 genfstab -U /mnt >> /mnt/etc/fstab
 arch-chroot /mnt
@@ -101,7 +101,7 @@ ln -sf /usr/share/zoneinfo/Chile/Continental /etc/localtime
 hwclock --systohc
 
 #Ntp conf and locale conf
-systemctl enable ntpd.service
+#systemctl enable ntpd.service ###NEEEEEEEEED TO HAVE NTP FIX
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
@@ -160,7 +160,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 read -rs -p "Do you want to install DWM for window manager support ? write yes or no" answer
 if [ "$answer" = 'yes' ]
 then
-    pacman -S xorg picom feh rofi lf betterlockscreen
+    pacman -S rofi lf betterlockscreen xorg xorg-xinit ntp feh picom lf
     cd
     ##Need to change to userfolder instead of root
     git clone https://github.com/CarlosR759/dwm-rice
