@@ -14,13 +14,13 @@ BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 
 if [ "$BiosOrUefi" = '64' ]
 then
-	echo "You are using an UEFI system"
+	echo "You are using a UEFI system"
 elif [ "$BiosOrUefi" = '32' ]
 then
-	echo "You are using an BIOS system"
+	echo "You are using a UEFI system that can only use systemd-boot or grub"
 else
-    echo "Hey something got wrong in this script during checking if system is bios or uefi, abort it using ctrl + c, script could not know if system is bios or uefi"
-    sleep 20
+    BiosOrUefi = '32'
+    echo "You are using a BIOS system"
 fi
 
 #Updates the system clock
