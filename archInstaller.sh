@@ -96,7 +96,7 @@ echo "Done. Proceeding with Arch Linux installation."
 pacstrap -K /mnt base linux linux-firmware man-db man-pages texinfo vi vim eza networkmanager bat alacritty kitty sudo fastfetch ufw
 
 genfstab -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt chrootPart.sh
+arch-chroot /mnt /root/ArchLinuxInstaller/chrootPart.sh
 
 umount -R /mnt
 
