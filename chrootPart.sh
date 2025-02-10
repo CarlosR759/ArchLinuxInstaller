@@ -1,6 +1,5 @@
 #!/bin/sh
 
-arch-chroot /mnt
 ln -sf /usr/share/zoneinfo/Chile/Continental /etc/localtime
 hwclock --systohc
 
@@ -50,10 +49,9 @@ then
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 elif [ "$BiosOrUefi" = '32' ]
 then
-    grub-install "$DISK"
+    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 else
-    echo "Hey something got wrong in this script during grub installation abort it using ctrl + c, system is not bios or uefi"
-    sleep 20
+    grub-install "$DISK"
 fi
 
 grub-mkconfig -o /boot/grub/grub.cfg
