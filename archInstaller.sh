@@ -32,7 +32,7 @@ lsblk
 
 echo "You will need to select a drive for your arch linux installation: for example, if you need sda drive put the path like this: /dev/sda"
 
-read -rs -p "Please insert your desire drive to make installation: " DISK
+read -rs -p "Please insert your desire drive to make installation: \n" DISK
 
 
  echo "Creating partitions on $DISK..."

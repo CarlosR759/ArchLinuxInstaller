@@ -17,23 +17,23 @@ echo "127.0.1.1       $Hostname.localdomain $Hostname" >> /etc/hosts
 systemctl enable NetworkManager.service
 
 #Setting root password
-read -rs -p "Please create your root account password: " Password1
-read -rs -p "Please write your password again: " Password2
+read -rs -p "Please create your root account password: \n" Password1
+read -rs -p "Please write your password again: \n" Password2
 #Needs to verify password match
 echo "$Password1" | passwd --stdin
 
-read -rs -p "Do you want to create another user besides root ? write yes or no" answer
+read -r -p "Do you want to create another user besides root ? write yes or no \n" answer
 
 if [ "$answer" = 'yes' ]
 then
-    read -rs -p "Please write your new user username: " User
-    read -rs -p "do you want to have your new user in wheel group to have sudo ussage? write yes or no: " wheel
+    read -r -p "Please write your new user username: \n" User
+    read -r -p "do you want to have your new user in wheel group to have sudo ussage? write yes or no: \n" wheel
     if [ "$wheel" = 'yes' ]
     then
         useradd "$User"
         usermod -aG wheel "$User"
-        read -rs -p "Please create your $User account password: " Password1
-        read -rs -p "Please write your password again: " Password2
+        read -rs -p "Please create your $User account password: \n" Password1
+        read -rs -p "Please write your password again: \n" Password2
         echo "$Password1" | passwd --stdin "$User"
         ### NEED TO VERIFY PASSWORD MATCH
     fi
@@ -44,6 +44,8 @@ fi
 mkinitcpio -P
 
 # GRUB INSTALLATION AND CONFIGURATION
+BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
+
 if [ "$BiosOrUefi" = '64' ]
 then
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
@@ -51,7 +53,8 @@ elif [ "$BiosOrUefi" = '32' ]
 then
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 else
-    grub-install "$DISK"
+    #grub-install "$DISK"
+    grub-install /dev/vda
 fi
 
 grub-mkconfig -o /boot/grub/grub.cfg
