@@ -75,7 +75,7 @@ echo
 
 if [ "$answer" = 'yes' ]
 then
-    pacman -S git rofi lf betterlockscreen xorg xorg-xinit ntp feh picom lf
+    pacman -S git rofi lf xorg xorg-xinit ntp feh picom
     cd
     ##Need to change to userfolder instead of root
     git clone https://github.com/CarlosR759/dwm-rice
@@ -96,4 +96,6 @@ then
     echo "dwmblocks &" >> ~/.xinitrc
     echo "dwm 2> ~/.dwm.log" >> ~/.xinitrc
 fi
+
+rm -rf /chrootPart.sh
 exit
