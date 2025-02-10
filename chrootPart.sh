@@ -52,6 +52,7 @@ fi
 mkinitcpio -P
 
 # GRUB INSTALLATION AND CONFIGURATION
+# NEED TO CHECK IF THIS VARIABLE IS OKEY OR NOT
 BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 
 if [ "$BiosOrUefi" = '64' ]
@@ -75,7 +76,7 @@ echo
 
 if [ "$answer" = 'yes' ]
 then
-    pacman -S git rofi lf xorg xorg-xinit ntp feh picom
+    pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom
     cd
     ##Need to change to userfolder instead of root
     git clone https://github.com/CarlosR759/dwm-rice
@@ -88,6 +89,7 @@ then
     make clean install
     cd ~/dwmBlocks-rice
     make clean install
+    mkdir ~/.config
     cd ~/.config
     git clone https://github.com/CarlosR759/mydotfiles .
     cp /etc/X11/xinit/xinitrc ~/.xinitrc
@@ -99,3 +101,5 @@ fi
 
 rm -rf /chrootPart.sh
 exit
+## TODO: add parallel downloads
+## Add password verificator function
