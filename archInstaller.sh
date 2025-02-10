@@ -97,7 +97,7 @@ pacstrap -K /mnt base linux linux-firmware man-db man-pages texinfo vi vim eza n
 
 genfstab -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
-arch-chroot /mnt /root/chrootPart.sh
+arch-chroot /mnt /chrootPart.sh
 
 umount -R /mnt
 
