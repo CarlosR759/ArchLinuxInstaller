@@ -70,12 +70,12 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 
 ### Installing window manager
-read -r -p "Do you want to install DWM for window manager support ? write yes or no:" answer
+read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer
 echo
 
 if [ "$answer" = 'yes' ]
 then
-    pacman -S rofi lf betterlockscreen xorg xorg-xinit ntp feh picom lf
+    pacman -S git rofi lf betterlockscreen xorg xorg-xinit ntp feh picom lf
     cd
     ##Need to change to userfolder instead of root
     git clone https://github.com/CarlosR759/dwm-rice
