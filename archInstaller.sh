@@ -93,6 +93,7 @@ echo "Done. Proceeding with Arch Linux installation."
 
 ### Needs to install amd or intel microcode
 ### INSTALL LIST AND ARCH CHROOT ###
+sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
 pacstrap -K /mnt base linux linux-firmware grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw
 
 genfstab -U /mnt >> /mnt/etc/fstab
