@@ -6,7 +6,7 @@ psswd_check() {
         echo "Password didn't match!"
         read -rs -p "Please repeat your password: " repeatPassword1
         read -rs -p "Please repeat your password again: " repeatPassword2
-        psswd_check ""$1" "$2""
+        psswd_check ""$repeatPassword1" "$repeatPassword2""
     fi
 
     password="$1"
