@@ -42,7 +42,7 @@ read -rs -p "Please create your root account password: " Password1
 echo
 read -rs -p "Please write your password again: " Password2
 echo
-Password=$(psswd_check ""$Password1" "$Password2"")
+psswd_check "$Password1" "$Password2"
 #Needs to verify password match
 echo "$Password" | passwd --stdin
 
@@ -63,7 +63,7 @@ then
         echo
         read -rs -p "Please write your password again: " Password2
         echo
-        Password=$(psswd_check ""$Password1" "$Password2"")
+        Password=$(psswd_check "$Password1" "$Password2")
         echo "$Password" | passwd --stdin "$User"
         ### NEED TO VERIFY PASSWORD MATCH
     fi
