@@ -114,7 +114,8 @@ pacstrap -K /mnt base linux linux-firmware grub man-db man-pages texinfo vi vim 
 
 genfstab -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
-arch-chroot /mnt /chrootPart.sh
+export DISK=$DISK
+arch-chroot /mnt -- env -i DISK=$DISK ./chrootPart.sh
 
 umount -R /mnt
 

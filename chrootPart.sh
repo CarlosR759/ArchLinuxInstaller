@@ -78,8 +78,8 @@ elif [ "$BiosOrUefi" = '32' ]
 then
     grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 else
-    #grub-install "$DISK"
-    grub-install /dev/vda
+    grub-install "$DISK"
+    #grub-install /dev/vda
 fi
 
 grub-mkconfig -o /boot/grub/grub.cfg
