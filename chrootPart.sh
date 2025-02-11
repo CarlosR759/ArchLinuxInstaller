@@ -1,5 +1,6 @@
 #!/bin/sh
 
+Password='0'
 psswd_check() {
     if [[ "$1" != "$2" ]]
     then
