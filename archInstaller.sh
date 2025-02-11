@@ -72,6 +72,7 @@ then
     w  # Write changes and exit
 EOF
 elif [ "$BiosOrUefi" = '0' ]
+then
     sudo fdisk  "$DISK" << EOF
     o # Create new empy partition table (MBR)
     n  # New partition for EFI System (512MB)
@@ -125,4 +126,3 @@ echo " "
 echo "You arch linux installation is completed, just write reboot to reboot the system and start using it!"
 echo "by the way, you have alacritty and kitty by default terminals"
 echo "please use visudo to uncomment the wheel group if you want your user to have sudo privilege"
-### TO DO: Check xinitrc configuration
