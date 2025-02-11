@@ -1,21 +1,22 @@
 #!/bin/sh
 
 Password='0'
-psswd_check() {
-    if [[ "$1" != "$2" ]]
-    then
-        echo
-        echo "Password didn't match!"
-        echo
-        read -rs -p "Please repeat your password: " repeatPassword1
-        echo
-        read -rs -p "Please repeat your password again: " repeatPassword2
-        echo
-        psswd_check "$repeatPassword1" "$repeatPassword2"
-    fi
 
-    Password="$1"
+psswd_check() {
+    while true; do
+        read -s -p "Enter password: " Password
+        echo
+        read -s -p "Confirm password: " confirm
+        echo
+
+        if [ "$Password" == "$confirm" ]; then
+            break
+        else
+            echo "Passwords do not match. Please try again."
+        fi
+    done
 }
+
 
 ln -sf /usr/share/zoneinfo/Chile/Continental /etc/localtime
 hwclock --systohc
@@ -39,11 +40,9 @@ echo "127.0.1.1       $Hostname.localdomain $Hostname" >> /etc/hosts
 systemctl enable NetworkManager.service
 
 #Setting root password
-read -rs -p "Please create your root account password: " Password1
+echo "You will need to create your root password now."
 echo
-read -rs -p "Please write your password again: " Password2
-echo
-psswd_check "$Password1" "$Password2"
+psswd_check
 #Needs to verify password match
 echo "$Password" | passwd --stdin
 
