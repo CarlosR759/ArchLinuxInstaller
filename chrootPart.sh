@@ -78,7 +78,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer
 echo
 
-if [ "$answer" = 'yes'  && "$User" = '0' ]
+if [[ "$answer" = 'yes'  && "$User" = '0' ]]
 then
     pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd
@@ -91,36 +91,48 @@ then
     make clean install
     cd ~/dmenu-rice
     make clean install
-    cd ~/dwmBlocks-rice
+    cd ~/programs/dwmBlocks-rice
     make clean install
     mkdir ~/.config
     cd ~/.config
     git clone https://github.com/CarlosR759/mydotfiles .
     cp /etc/X11/xinit/xinitrc ~/.xinitrc
+    sed -i 's/^$twm &//' ~/.xinitrc
+    sed -i 's/^$xclock -geometry 50x50-1+1 &//' ~/.xinitrc
+    sed -i 's/^$xterm -geometry 80x50+494+51 &//' ~/.xinitrc
+    sed -i 's/^$xterm -geometry 80x20+494-0 &//' ~/.xinitrc
+    sed -i 's/^$xterm -geometry 80x66+0+0 -name login//' ~/.xinitrc
+
     #echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
     echo "picom -b &" >> ~/.xinitrc
     echo "dwmblocks &" >> ~/.xinitrc
     echo "dwm 2> ~/.dwm.log" >> ~/.xinitrc
-elif [ "$answer" = 'yes' && "$User" != '0' ]
+elif [[ "$answer" = 'yes' && "$User" != '0' ]]
 then
     pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
-    cd
+    cd /home/"$User"
     ##Need to change to userfolder instead of root
     git clone https://github.com/CarlosR759/dwm-rice
     git clone https://github.com/CarlosR759/dmenu-rice
     mkdir programs && cd programs
     git clone https://github.com/CarlosR759/dwmBlocks-rice
 
-    cd ~/dwm-rice
+    cd /home/"$User"/dwm-rice
     make clean install
-    cd ~/dmenu-rice
+    cd /home/"$User"/dmenu-rice
     make clean install
-    cd ~/dwmBlocks-rice
+    cd /home/"$User"/programs/dwmBlocks-rice
     make clean install
-    mkdir ~/.config
-    cd ~/.config
+    mkdir /home/"$User"/.config
+    cd /home/"$User"/.config
     git clone https://github.com/CarlosR759/mydotfiles .
-    cp /etc/X11/xinit/xinitrc ~/.xinitrc
+    cp /etc/X11/xinit/xinitrc /home/"$User"/.xinitrc
+    sed -i 's/^$twm &//' /home/"$User"/.xinitrc
+    sed -i 's/^$xclock -geometry 50x50-1+1 &//' /home/"$User"/.xinitrc
+    sed -i 's/^$xterm -geometry 80x50+494+51 &//' /home/"$User"/.xinitrc
+    sed -i 's/^$xterm -geometry 80x20+494-0 &//' /home/"$User"/.xinitrc
+    sed -i 's/^$xterm -geometry 80x66+0+0 -name login//' /home/"$User"/.xinitrc
+
     #echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
     echo "picom -b &" >> ~/.xinitrc
     echo "dwmblocks &" >> ~/.xinitrc
