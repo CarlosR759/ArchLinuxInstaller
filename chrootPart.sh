@@ -8,7 +8,6 @@ sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
 pacman -Syyu
 
 #Ntp conf and locale conf
-#Check this line of systemctl
 systemctl enable ntpd.service
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
@@ -52,13 +51,13 @@ then
     fi
 else
     echo "okey, another user will not be made"
+    User='0' #This help in the last if to check if a user was made or not
 fi
 
 mkinitcpio -P
 
 # GRUB INSTALLATION AND CONFIGURATION
-# NEED TO CHECK IF THIS VARIABLE IS OKEY OR NOT
-BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size) #Check if path is correct
+BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 
 if [ "$BiosOrUefi" = '64' ]
 then
@@ -79,16 +78,40 @@ grub-mkconfig -o /boot/grub/grub.cfg
 read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer
 echo
 
-if [ "$answer" = 'yes' ]
+if [ "$answer" = 'yes'  && "$User" = '0' ]
 then
-    pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd
+    pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
+    cd
+    git clone https://github.com/CarlosR759/dwm-rice
+    git clone https://github.com/CarlosR759/dmenu-rice
+    mkdir programs && cd programs
+    git clone https://github.com/CarlosR759/dwmBlocks-rice
+
+    cd ~/dwm-rice
+    make clean install
+    cd ~/dmenu-rice
+    make clean install
+    cd ~/dwmBlocks-rice
+    make clean install
+    mkdir ~/.config
+    cd ~/.config
+    git clone https://github.com/CarlosR759/mydotfiles .
+    cp /etc/X11/xinit/xinitrc ~/.xinitrc
+    #echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
+    echo "picom -b &" >> ~/.xinitrc
+    echo "dwmblocks &" >> ~/.xinitrc
+    echo "dwm 2> ~/.dwm.log" >> ~/.xinitrc
+elif [ "$answer" = 'yes' && "$User" != '0' ]
+then
+    pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd
     ##Need to change to userfolder instead of root
     git clone https://github.com/CarlosR759/dwm-rice
     git clone https://github.com/CarlosR759/dmenu-rice
+    mkdir programs && cd programs
     git clone https://github.com/CarlosR759/dwmBlocks-rice
 
-    cd dwm-rice
+    cd ~/dwm-rice
     make clean install
     cd ~/dmenu-rice
     make clean install
@@ -106,5 +129,4 @@ fi
 
 rm -rf /chrootPart.sh
 exit
-## TODO: add parallel downloads
 ## Add password verificator function
