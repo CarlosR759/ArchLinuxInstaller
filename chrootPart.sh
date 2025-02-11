@@ -1,5 +1,17 @@
 #!/bin/sh
 
+psswd_check() {
+    if [[ "$1" != "$2" ]]
+    then
+        echo "Password didn't match!"
+        read -rs -p "Please repeat your password: " repeatPassword1
+        read -rs -p "Please repeat your password again: " repeatPassword2
+        psswd_check ""$1" "$2""
+    fi
+
+    password="$1"
+}
+
 ln -sf /usr/share/zoneinfo/Chile/Continental /etc/localtime
 hwclock --systohc
 
@@ -26,8 +38,9 @@ read -rs -p "Please create your root account password: " Password1
 echo
 read -rs -p "Please write your password again: " Password2
 echo
+Password=$(psswd_check ""$Password1" "$Password2"")
 #Needs to verify password match
-echo "$Password1" | passwd --stdin
+echo "$Password" | passwd --stdin
 
 read -r -p "Do you want to create another user besides root ? write yes or no: " answer
 echo
@@ -46,7 +59,8 @@ then
         echo
         read -rs -p "Please write your password again: " Password2
         echo
-        echo "$Password1" | passwd --stdin "$User"
+        Password=$(psswd_check ""$Password1" "$Password2"")
+        echo "$Password" | passwd --stdin "$User"
         ### NEED TO VERIFY PASSWORD MATCH
     fi
 else
@@ -101,7 +115,7 @@ then
     sed -i 's/^$xclock -geometry 50x50-1+1 &//' ~/.xinitrc
     sed -i 's/^$xterm -geometry 80x50+494+51 &//' ~/.xinitrc
     sed -i 's/^$xterm -geometry 80x20+494-0 &//' ~/.xinitrc
-    sed -i 's/^$xterm -geometry 80x66+0+0 -name login//' ~/.xinitrc
+    sed -i 's/^exec $xterm -geometry 80x66+0+0 -name login//' ~/.xinitrc
 
     #echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
     echo "picom -b &" >> ~/.xinitrc
@@ -111,7 +125,6 @@ elif [[ "$answer" = 'yes' && "$User" != '0' ]]
 then
     pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd /home/"$User"
-    ##Need to change to userfolder instead of root
     git clone https://github.com/CarlosR759/dwm-rice
     git clone https://github.com/CarlosR759/dmenu-rice
     mkdir programs && cd programs
@@ -131,7 +144,7 @@ then
     sed -i 's/^$xclock -geometry 50x50-1+1 &//' /home/"$User"/.xinitrc
     sed -i 's/^$xterm -geometry 80x50+494+51 &//' /home/"$User"/.xinitrc
     sed -i 's/^$xterm -geometry 80x20+494-0 &//' /home/"$User"/.xinitrc
-    sed -i 's/^$xterm -geometry 80x66+0+0 -name login//' /home/"$User"/.xinitrc
+    sed -i 's/^exec $xterm -geometry 80x66+0+0 -name login//' /home/"$User"/.xinitrc
 
     #echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
     echo "picom -b &" >> ~/.xinitrc
