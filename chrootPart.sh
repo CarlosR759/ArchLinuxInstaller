@@ -3,8 +3,13 @@
 ln -sf /usr/share/zoneinfo/Chile/Continental /etc/localtime
 hwclock --systohc
 
+#Adding parallel downloads to new chroot environemnt
+sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
+pacman -Syyu
+
 #Ntp conf and locale conf
-#systemctl enable ntpd.service ###NEEEEEEEEED TO HAVE NTP FIX
+#Check this line of systemctl
+systemctl enable ntpd.service
 locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
 
@@ -36,7 +41,7 @@ then
     echo
     if [ "$wheel" = 'yes' ]
     then
-        useradd "$User"
+        useradd -m "$User"
         usermod -aG wheel "$User"
         read -rs -p "Please create your $User account password: " Password1
         echo
@@ -53,7 +58,7 @@ mkinitcpio -P
 
 # GRUB INSTALLATION AND CONFIGURATION
 # NEED TO CHECK IF THIS VARIABLE IS OKEY OR NOT
-BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
+BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size) #Check if path is correct
 
 if [ "$BiosOrUefi" = '64' ]
 then
@@ -76,7 +81,7 @@ echo
 
 if [ "$answer" = 'yes' ]
 then
-    pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom
+    pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd
     cd
     ##Need to change to userfolder instead of root
     git clone https://github.com/CarlosR759/dwm-rice

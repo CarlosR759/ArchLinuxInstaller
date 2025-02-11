@@ -19,7 +19,7 @@ elif [ "$BiosOrUefi" = '32' ]
 then
 	echo "You are using a UEFI system that can only use systemd-boot or grub"
 else
-    BiosOrUefi='32'
+    BiosOrUefi='0'
     echo "You are using a BIOS system"
 fi
 
@@ -57,23 +57,38 @@ then
 EOF
 elif [ "$BiosOrUefi" = '32' ]
 then
+    sudo fdisk "$DISK" << EOF
+    g  # Create a new empty partition table (GPT)
+    n  # New partition for EFI System (512MB)
+    p
+    1
+
+    +512M
+    n  # New partition for root (/) (remaining space)
+    p
+    2
+
+
+    w  # Write changes and exit
+EOF
+elif [ "$BiosOrUefi" = '0' ]
     sudo fdisk  "$DISK" << EOF
     o # Create new empy partition table (MBR)
     n  # New partition for EFI System (512MB)
-	p
-	1
+    p
+    1
 
-	+512M
-	n  # New partition for root (/) (remaining space)
-	p
-	2
+    +512M
+    n  # New partition for root (/) (remaining space)
+    p
+    2
 
 
-	w  # Write changes and exit
+    w  # Write changes and exit
 EOF
 else
-    echo "Hey something got wrong in this script during partition making, abort it using ctrl + c, script could not know if system is bios or uefi"
-    sleep 20
+    echo "something went wrong when creating partitions. Please cancel the script with ctrl + c"
+    sleep 3600
 fi
 
 
