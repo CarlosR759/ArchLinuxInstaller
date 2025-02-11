@@ -3,7 +3,9 @@
 psswd_check() {
     if [[ "$1" != "$2" ]]
     then
+        echo
         echo "Password didn't match!"
+        echo
         read -rs -p "Please repeat your password: " repeatPassword1
         echo
         read -rs -p "Please repeat your password again: " repeatPassword2
@@ -11,7 +13,7 @@ psswd_check() {
         psswd_check "$repeatPassword1" "$repeatPassword2"
     fi
 
-    password="$1"
+    Password="$1"
 }
 
 ln -sf /usr/share/zoneinfo/Chile/Continental /etc/localtime
