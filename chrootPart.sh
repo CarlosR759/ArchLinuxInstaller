@@ -1,7 +1,6 @@
 #!/bin/sh
 
 Password='0'
-
 psswd_check() {
     while true; do
         read -s -p "Enter password: " Password
@@ -43,7 +42,6 @@ systemctl enable NetworkManager.service
 echo "You will need to create your root password now."
 echo
 psswd_check
-#Needs to verify password match
 echo "$Password" | passwd --stdin
 
 read -r -p "Do you want to create another user besides root ? write yes or no: " answer
@@ -59,17 +57,13 @@ then
     then
         useradd -m "$User"
         usermod -aG wheel "$User"
-        read -rs -p "Please create your $User account password: " Password1
-        echo
-        read -rs -p "Please write your password again: " Password2
-        echo
-        Password=$(psswd_check "$Password1" "$Password2")
+        echo "You will need to create your "$User" password now."
+        psswd_check
         echo "$Password" | passwd --stdin "$User"
-        ### NEED TO VERIFY PASSWORD MATCH
     fi
 else
     echo "okey, another user will not be made"
-    User='0' #This help in the last if to check if a user was made or not
+    User='0' #This help in the last if block to check if a user was made or not
 fi
 
 mkinitcpio -P
@@ -158,4 +152,3 @@ fi
 
 rm -rf /chrootPart.sh
 exit
-## Add password verificator function
