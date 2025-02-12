@@ -1,14 +1,16 @@
 <div align="center">
-	<a href="https://archlinux.org/"><img alt="Arch" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Archlinux-logo-standard-version.svg" width="180" height="120"></a>
+	<a href="https://archlinux.org/"><img alt="Arch" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Archlinux-logo-standard-version.svg" width="260" height="120"></a>
 </div>
 
 <h2 align="center">
 	ArchLinuxInstaller 
+
+	<p align="center">
+		My custom arch linux installation that includes window manager if you want!
+	</p>
+
 </h2>
 
-<p align="center">
-	My custom arch linux installation that includes window manager if you want!
-</p>
 
 ## Prerequisites
 
