@@ -2,7 +2,7 @@
 
 <a href="https://archlinux.org/"><img alt="Arch" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Archlinux-logo-standard-version.svg" width="180" height="120"></a>
 
-	# ArchLinuxInstaller
+	<h2> ArchLinuxInstaller </h2>
 
 	### My custom arch linux installation that includes window manager if you want!
 
