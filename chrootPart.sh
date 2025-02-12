@@ -1,5 +1,6 @@
 #!/bin/sh
 
+DISK="$1"
 Password='0'
 psswd_check() {
     while true; do
@@ -152,3 +153,4 @@ fi
 
 rm -rf /chrootPart.sh
 exit
+##  ENABLE UFW
