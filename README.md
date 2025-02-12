@@ -1,15 +1,15 @@
 <div align="center">
-
-<a href="https://archlinux.org/"><img alt="Arch" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Archlinux-logo-standard-version.svg" width="180" height="120"></a>
-
-	<h2> ArchLinuxInstaller </h2>
-
-
+	<a href="https://archlinux.org/"><img alt="Arch" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Archlinux-logo-standard-version.svg" width="180" height="120"></a>
 </div>
+
+<h2 align="center">
+	ArchLinuxInstaller 
+</h2>
 
 <p align="center">
 	My custom arch linux installation that includes window manager if you want!
-</>v
+</p>
+
 ## Prerequisites
 
 Arch linux iso running in your computer and a clean drive to work with it. That's all
