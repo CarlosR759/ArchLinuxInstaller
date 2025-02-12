@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://archlinux.org/"><img alt="Arch" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Archlinux-logo-standard-version.svg" width="140" height="120"></a>
+<a href="https://archlinux.org/"><img alt="Arch" src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Archlinux-logo-standard-version.svg" width="180" height="120"></a>
 
 	# ArchLinuxInstaller
 
