@@ -5,12 +5,12 @@
 <h2 align="center">
 	ArchLinuxInstaller 
 
-	<p align="center">
-		My custom arch linux installation that includes window manager if you want!
-	</p>
 
 </h2>
 
+<p align="center">
+	My custom arch linux installation that includes window manager if you want!
+</p>
 
 ## Prerequisites
 
