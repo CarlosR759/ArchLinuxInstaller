@@ -4,11 +4,12 @@
 
 	<h2> ArchLinuxInstaller </h2>
 
-	### My custom arch linux installation that includes window manager if you want!
 
 </div>
 
-
+<p align="center">
+	My custom arch linux installation that includes window manager if you want!
+</>v
 ## Prerequisites
 
 Arch linux iso running in your computer and a clean drive to work with it. That's all
