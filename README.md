@@ -1,4 +1,5 @@
 <div align="center">
+<a href="https://archlinux.org/"><img alt="Arch" src=" https://upload.wikimedia.org/wikipedia/commons/f/f9/Archlinux-logo-standard-version.svg" width="60" height="40"></a>
 
 	# ArchLinuxInstaller
 	### My custom arch linux installation that includes window manager if you want!
@@ -26,7 +27,7 @@ Arch linux iso running in your computer and a clean drive to work with it. That'
 
 ## Usage
 
-After launching Arch iso and access to shell, you will need to update the repos database and install git
+After launching Arch iso and have access to shell, you will need to update the repos database and install git
 
 ```sh
 pacman -Sy && pacman -S git --noconfirm
