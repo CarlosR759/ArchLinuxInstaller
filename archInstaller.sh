@@ -15,12 +15,15 @@ BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 if [ "$BiosOrUefi" = '64' ]
 then
 	echo "You are using a UEFI system"
+	echo
 elif [ "$BiosOrUefi" = '32' ]
 then
 	echo "You are using a UEFI system that can only use systemd-boot or grub"
+	echo
 else
     BiosOrUefi='0'
     echo "You are using a BIOS system"
+    echo
 fi
 
 #Updates the system clock
@@ -31,7 +34,7 @@ echo "Selecting drive for installation"
 lsblk
 
 echo "You will need to select a drive for your arch linux installation: for example, if you need sda drive put the path like this: /dev/sda"
-
+echo
 read -r -p "Please insert your desire drive to make installation: " DISK
 echo
 
@@ -107,10 +110,28 @@ mount "${DISK}"1 /mnt/boot
 
 echo "Done. Proceeding with Arch Linux installation."
 
-### Needs to install amd or intel microcode
+### Checks if cpu is intel, amd o virtualize
+cpu_info=$(cat /proc/cpuinfo)
+if echo "$cpu_info" | grep -iq 'intel'; then
+    cpu_vendor="Intel"
+elif echo "$cpu_info" | grep -iq 'amd'; then
+    cpu_vendor="AMD"
+else
+    cpu_vendor="virtualMachine"
+fi
+
 ### INSTALL LIST AND ARCH CHROOT ###
 sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
-pacstrap -K /mnt base linux linux-firmware grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw
+
+if [ "$cpu_vendor" = "Intel" ]
+then
+    pacstrap -K /mnt base linux linux-firmware intel-ucode grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw
+elif [ "$cpu_vendor" = "AMD" ]
+    pacstrap -K /mnt base linux linux-firmware amd-ucode grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw
+elif [ "$cpu_vendor" = "virtualMachine" ]
+    pacstrap -K /mnt base linux linux-firmware grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw
+fi
+
 
 genfstab -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
