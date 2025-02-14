@@ -96,8 +96,10 @@ else
 fi
 
 
-### NEED TO CREATE FORMATING OF PARTITIONS WITH NVME SUPPORT
-# Format the partitions
+###Checks if drive is sata or mvme
+
+
+
 echo "Formatting partitions..."
 sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
 sudo mkfs.ext4 "${DISK}"2       # Root partition

@@ -91,7 +91,7 @@ echo
 
 if [[ "$answer" = 'yes'  && "$User" = '0' ]]
 then
-    pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
+    pacman -S git rofi lf xorg xorg-xinit base base-devel wget ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd
     git clone https://github.com/CarlosR759/dwm-rice
     git clone https://github.com/CarlosR759/dmenu-rice
@@ -113,14 +113,16 @@ then
     sed -i 's/^$xterm -geometry 80x50+494+51 &//' ~/.xinitrc
     sed -i 's/^$xterm -geometry 80x20+494-0 &//' ~/.xinitrc
     sed -i 's/^exec $xterm -geometry 80x66+0+0 -name login//' ~/.xinitrc
-
-    #echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
+    cd
+    wget -O ~/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
+    git clone https://github.com/CarlosR759/wallpapers
+    echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
     echo "picom -b &" >> ~/.xinitrc
     echo "dwmblocks &" >> ~/.xinitrc
     echo "dwm 2> ~/.dwm.log" >> ~/.xinitrc
 elif [[ "$answer" = 'yes' && "$User" != '0' ]]
 then
-    pacman -S git rofi lf xorg xorg-xinit base base-devel ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
+    pacman -S git rofi lf xorg xorg-xinit base base-devel wget ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd /home/"$User"
     git clone https://github.com/CarlosR759/dwm-rice
     git clone https://github.com/CarlosR759/dmenu-rice
@@ -142,8 +144,10 @@ then
     sed -i 's/^$xterm -geometry 80x50+494+51 &//' /home/"$User"/.xinitrc
     sed -i 's/^$xterm -geometry 80x20+494-0 &//' /home/"$User"/.xinitrc
     sed -i 's/^exec $xterm -geometry 80x66+0+0 -name login//' /home/"$User"/.xinitrc
-
-    #echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
+    cd /home/"$User"
+    wget -O ~/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
+    git clone https://github.com/CarlosR759/wallpapers
+    echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
     echo "picom -b &" >> ~/.xinitrc
     echo "dwmblocks &" >> ~/.xinitrc
     echo "dwm 2> ~/.dwm.log" >> ~/.xinitrc
