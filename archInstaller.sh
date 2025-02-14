@@ -96,19 +96,39 @@ else
 fi
 
 
-###Checks if drive is sata or mvme
+###Checks if drive is sata or mvme to create file systems and mounting.
+if [[ "$DISK" == /dev/nvme* ]]; then
+    echo "Formatting partitions..."
+    sudo mkfs.fat -F 32 "${DISK}"p1  # EFI System Partition (ESP)
+    sudo mkfs.ext4 "${DISK}"p2       # Root partition
 
+    # Mount the partitions for installation
+    echo "Mounting partitions..."
+    mount "${DISK}"p2 /mnt
+    mkdir -p /mnt/boot
+    mount "${DISK}"p1 /mnt/boot
 
+elif [[ "$DISK" == /dev/sd* ]]; then
+    echo "Formatting partitions..."
+    sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
+    sudo mkfs.ext4 "${DISK}"2       # Root partition
 
-echo "Formatting partitions..."
-sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
-sudo mkfs.ext4 "${DISK}"2       # Root partition
+    # Mount the partitions for installation
+    echo "Mounting partitions..."
+    mount "${DISK}"2 /mnt
+    mkdir -p /mnt/boot
+    mount "${DISK}"1 /mnt/boot
+else
+    echo "Formatting partitions for virtual drive..."
+    sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
+    sudo mkfs.ext4 "${DISK}"2       # Root partition
 
-# Mount the partitions for installation
-echo "Mounting partitions..."
-mount "${DISK}"2 /mnt
-mkdir -p /mnt/boot
-mount "${DISK}"1 /mnt/boot
+    # Mount the partitions for installation
+    echo "Mounting partitions..."
+    mount "${DISK}"2 /mnt
+    mkdir -p /mnt/boot
+    mount "${DISK}"1 /mnt/boot
+fi
 
 echo "Done. Proceeding with Arch Linux installation."
 
