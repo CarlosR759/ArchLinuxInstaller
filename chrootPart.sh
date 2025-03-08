@@ -75,10 +75,10 @@ BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 
 if [ "$BiosOrUefi" = '64' ]
 then
-    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+    grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 elif [ "$BiosOrUefi" = '32' ]
 then
-    grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+    grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 else
     grub-install "$DISK"
 fi
