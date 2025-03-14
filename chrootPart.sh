@@ -1,6 +1,7 @@
 #!/bin/sh
 
 DISK="$1"
+encryptFlag="$2"
 Password='0'
 
 psswd_check() {
@@ -73,17 +74,20 @@ mkinitcpio -P
 # GRUB INSTALLATION AND CONFIGURATION
 BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 
-if [ "$BiosOrUefi" = '64' ]
+if [ "$encryptFlag" == 'no']
 then
-    grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-elif [ "$BiosOrUefi" = '32' ]
-then
-    grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-else
-    grub-install "$DISK"
+  if [ "$BiosOrUefi" = '64' ]
+  then
+      grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+  elif [ "$BiosOrUefi" = '32' ]
+  then
+      grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+  else
+      grub-install "$DISK"
+  fi
+  grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
-grub-mkconfig -o /boot/grub/grub.cfg
 
 ### Installing window manager
 read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer

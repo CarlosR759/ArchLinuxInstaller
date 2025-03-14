@@ -295,8 +295,8 @@ fi
 
 
 genfstab -U /mnt >> /mnt/etc/fstab
-cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
-arch-chroot /mnt /chrootPart.sh "$DISK"
+cp /root/archLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
+arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag"
 
 umount -R /mnt
 
@@ -308,3 +308,16 @@ echo " "
 echo "You arch linux installation is completed, just write reboot to reboot the system and start using it!"
 echo "by the way, you have alacritty and kitty by default terminals"
 echo "please use visudo to uncomment the wheel group if you want your user to have sudo privilege"
+
+if [ "$encryptFlag" == yes]
+then
+    echo "PLEASE READ THIS!!!"
+    echo "You have installed the encrypt root partition. But you don't have grub, you will need to install it with the propper UUID to boot properly."
+    echo "To do that make this:"
+    echo "1) mount your drives again"
+    echo "2) fstab -U /mnt >> /mnt/etc/fstab"
+    echo "3) Select  the UUID of the for crypto_LUKS in the bottom of /mnt/etc/fstab and decrypted drive"
+    echo "4) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=<UUIDofDecryptedPartition"
+    echo "5) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install "$DISK" "
+    echo "6) finally grub-mkconfig -o /boot/grub/grub.cfg"
+fi
