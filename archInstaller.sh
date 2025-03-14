@@ -111,7 +111,13 @@ then
       cryptsetup luksFormat "$DISK"2
       echo "Please introduce your password to open drive"
       crypsetup open "$DISK"2 rootDrive
+    elif [[ "$DISK" == /dev/vd* ]]
+    then
+      cryptsetup luksFormat "$DISK"2
+      echo "Please introduce your password to open drive"
+      crypsetup open "$DISK"2 rootDrive
     fi
+
     # Create a GPT partition table (for UEFI systems)
     sudo fdisk "$DISK" << EOF
 g  # Create a new empty partition table (GPT)
@@ -135,6 +141,11 @@ EOF
       echo "Please introduce your password to open drive"
       crypsetup open "$DISK"p2 rootDrive
     elif [[ "$DISK" == /dev/sd* ]]
+    then
+      cryptsetup luksFormat "$DISK"2
+      echo "Please introduce your password to open drive"
+      crypsetup open "$DISK"2 rootDrive
+    elif [[ "$DISK" == /dev/vd* ]]
     then
       cryptsetup luksFormat "$DISK"2
       echo "Please introduce your password to open drive"
@@ -163,6 +174,11 @@ EOF
       echo "Please introduce your password to open drive"
       crypsetup open "$DISK"p2 rootDrive
     elif [[ "$DISK" == /dev/sd* ]]
+    then
+      cryptsetup luksFormat "$DISK"2
+      echo "Please introduce your password to open drive"
+      crypsetup open "$DISK"2 rootDrive
+    elif [[ "$DISK" == /dev/vd* ]]
     then
       cryptsetup luksFormat "$DISK"2
       echo "Please introduce your password to open drive"
