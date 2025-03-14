@@ -157,13 +157,13 @@ EOF
   then
     if [[ "$DISK" == /dev/nvme* ]]
     then
-        cryptsetup luksFormat "$DISK"p2
-        echo "Please introduce your password to open drive"
-        crypsetup open "$DISK"p2 rootDrive
+      cryptsetup luksFormat "$DISK"p2
+      echo "Please introduce your password to open drive"
+      crypsetup open "$DISK"p2 rootDrive
     elif [[ "$DISK" == /dev/sd* ]]; then
-        cryptsetup luksFormat "$DISK"2
-        echo "Please introduce your password to open drive"
-        crypsetup open "$DISK"2 rootDrive
+      cryptsetup luksFormat "$DISK"2
+      echo "Please introduce your password to open drive"
+      crypsetup open "$DISK"2 rootDrive
     fi
 
     sudo fdisk  "$DISK" << EOF
@@ -181,8 +181,8 @@ p
 w  # Write changes and exit
 EOF
   else
-      echo "something went wrong when creating partitions. Please cancel the script with ctrl + c"
-      sleep 3600
+    echo "something went wrong when creating partitions. Please cancel the script with ctrl + c"
+    sleep 3600
   fi
 fi
 
@@ -190,71 +190,78 @@ fi
 ###Checks if drive is sata or mvme to create file systems and mounting.
 if [ "$encryptFlag" = 'no' ]
 then
-  if [[ "$DISK" == /dev/nvme* ]]; then
-      echo "Formatting partitions..."
-      sudo mkfs.fat -F 32 "${DISK}"p1  # EFI System Partition (ESP)
-      sudo mkfs.ext4 "${DISK}"p2       # Root partition
+  if [[ "$DISK" == /dev/nvme* ]]
+  then
+    echo "Formatting partitions..."
+    sudo mkfs.fat -F 32 "${DISK}"p1  # EFI System Partition (ESP)
+    sudo mkfs.ext4 "${DISK}"p2       # Root partition
 
-      # Mount the partitions for installation
-      echo "Mounting partitions..."
-      mount "${DISK}"p2 /mnt
-      mkdir -p /mnt/boot
-      mount "${DISK}"p1 /mnt/boot
+    # Mount the partitions for installation
+    echo "Mounting partitions..."
+    mount "${DISK}"p2 /mnt
+    mkdir -p /mnt/boot
+    mount "${DISK}"p1 /mnt/boot
 
-  elif [[ "$DISK" == /dev/sd* ]]; then
-      echo "Formatting partitions..."
-      sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
-      sudo mkfs.ext4 "${DISK}"2       # Root partition
+  elif [[ "$DISK" == /dev/sd* ]]
+  then
+    echo "Formatting partitions..."
+    sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
+    sudo mkfs.ext4 "${DISK}"2       # Root partition
 
-      # Mount the partitions for installation
-      echo "Mounting partitions..."
-      mount "${DISK}"2 /mnt
-      mkdir -p /mnt/boot
-      mount "${DISK}"1 /mnt/boot
-  else
-      echo "Formatting partitions for virtual drive..."
-      sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
-      sudo mkfs.ext4 "${DISK}"2       # Root partition
+    # Mount the partitions for installation
+    echo "Mounting partitions..."
+    mount "${DISK}"2 /mnt
+    mkdir -p /mnt/boot
+    mount "${DISK}"1 /mnt/boot
+  elif [["$DISK" == /dev/vd* ]]
+  then
+    echo "Formatting partitions for virtual drive..."
+    sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
+    sudo mkfs.ext4 "${DISK}"2       # Root partition
 
-      # Mount the partitions for installation
-      echo "Mounting partitions..."
-      mount "${DISK}"2 /mnt
-      mkdir -p /mnt/boot
-      mount "${DISK}"1 /mnt/boot
+    # Mount the partitions for installation
+    echo "Mounting partitions..."
+    mount "${DISK}"2 /mnt
+    mkdir -p /mnt/boot
+    mount "${DISK}"1 /mnt/boot
   fi
 elif [ "$encryptFlag" = 'yes' ]
 then
-    if [[ "$DISK" == /dev/nvme* ]]; then
-        echo "Formatting partitions..."
-        sudo mkfs.fat -F 32 "${DISK}"p1  # EFI System Partition (ESP)
-        sudo mkfs.ext4 /dev/mapper/rootDrive       # Root partition
+    if [[ "$DISK" == /dev/nvme* ]]
+    then
+      echo "Formatting partitions..."
+      sudo mkfs.fat -F 32 "${DISK}"p1  # EFI System Partition (ESP)
+      sudo mkfs.ext4 /dev/mapper/rootDrive       # Root partition
 
-        # Mount the partitions for installation
-        echo "Mounting partitions..."
-        mount /dev/mapper/rootDrive /mnt
-        mkdir -p /mnt/boot
-        mount "${DISK}"p1 /mnt/boot
+      # Mount the partitions for installation
+      echo "Mounting partitions..."
+      mount /dev/mapper/rootDrive /mnt
+      mkdir -p /mnt/boot
+      mount "${DISK}"p1 /mnt/boot
 
-    elif [[ "$DISK" == /dev/sd* ]]; then
-        echo "Formatting partitions..."
-        sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
-        sudo mkfs.ext4 /dev/mapper/rootDrive       # Root partition
+    elif [[ "$DISK" == /dev/sd* ]]
+    then
+      echo "Formatting partitions..."
+      sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
+      sudo mkfs.ext4 /dev/mapper/rootDrive       # Root partition
 
-        # Mount the partitions for installation
-        echo "Mounting partitions..."
-        mount /dev/mapper/rootDrive /mnt
-        mkdir -p /mnt/boot
-        mount "${DISK}"1 /mnt/boot
-    else
-        echo "Formatting partitions for virtual drive..."
-        sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
-        sudo mkfs.ext4 /dev/mapper/rootDrive       # Root partition
+      # Mount the partitions for installation
+      echo "Mounting partitions..."
+      mount /dev/mapper/rootDrive /mnt
+      mkdir -p /mnt/boot
+      mount "${DISK}"1 /mnt/boot
 
-        # Mount the partitions for installation
-        echo "Mounting partitions..."
-        mount /dev/mapper/rootDrive /mnt
-        mkdir -p /mnt/boot
-        mount "${DISK}"1 /mnt/boot
+    elif [["$DISK" == /dev/vd* ]]
+    then
+      echo "Formatting partitions for virtual drive..."
+      sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
+      sudo mkfs.ext4 /dev/mapper/rootDrive       # Root partition
+
+      # Mount the partitions for installation
+      echo "Mounting partitions..."
+      mount /dev/mapper/rootDrive /mnt
+      mkdir -p /mnt/boot
+      mount "${DISK}"1 /mnt/boot
     fi
 fi
 echo "Done. Proceeding with Arch Linux installation."
@@ -286,7 +293,7 @@ fi
 
 genfstab -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
-arch-chroot /mnt /chrootPart.sh "$DISK"
+arch-chroot /mnt ./chrootPart.sh "$DISK"
 
 umount -R /mnt
 
