@@ -296,7 +296,7 @@ fi
 
 genfstab -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
-arch-chroot /mnt ./chrootPart.sh "$DISK"
+arch-chroot /mnt /chrootPart.sh "$DISK"
 
 umount -R /mnt
 
