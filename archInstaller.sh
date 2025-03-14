@@ -106,7 +106,8 @@ then
       cryptsetup luksFormat "$DISK"p1
       echo "Please introduce your password to open drive"
       crypsetup open "$DISK"p2 rootDrive
-    elif [[ "$DISK" == /dev/sd* ]]; then
+    elif [[ "$DISK" == /dev/sd* ]]
+    then
       cryptsetup luksFormat "$DISK"2
       echo "Please introduce your password to open drive"
       crypsetup open "$DISK"2 rootDrive
@@ -133,7 +134,8 @@ EOF
       cryptsetup luksFormat "$DISK"p2
       echo "Please introduce your password to open drive"
       crypsetup open "$DISK"p2 rootDrive
-    elif [[ "$DISK" == /dev/sd* ]]; then
+    elif [[ "$DISK" == /dev/sd* ]]
+    then
       cryptsetup luksFormat "$DISK"2
       echo "Please introduce your password to open drive"
       crypsetup open "$DISK"2 rootDrive
@@ -160,7 +162,8 @@ EOF
       cryptsetup luksFormat "$DISK"p2
       echo "Please introduce your password to open drive"
       crypsetup open "$DISK"p2 rootDrive
-    elif [[ "$DISK" == /dev/sd* ]]; then
+    elif [[ "$DISK" == /dev/sd* ]]
+    then
       cryptsetup luksFormat "$DISK"2
       echo "Please introduce your password to open drive"
       crypsetup open "$DISK"2 rootDrive
@@ -213,7 +216,7 @@ then
     mount "${DISK}"2 /mnt
     mkdir -p /mnt/boot
     mount "${DISK}"1 /mnt/boot
-  elif [["$DISK" == /dev/vd* ]]
+  elif [[ "$DISK" == /dev/vd* ]]
   then
     echo "Formatting partitions for virtual drive..."
     sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
@@ -251,7 +254,7 @@ then
       mkdir -p /mnt/boot
       mount "${DISK}"1 /mnt/boot
 
-    elif [["$DISK" == /dev/vd* ]]
+    elif [[ "$DISK" == /dev/vd* ]]
     then
       echo "Formatting partitions for virtual drive..."
       sudo mkfs.fat -F 32 "${DISK}"1  # EFI System Partition (ESP)
