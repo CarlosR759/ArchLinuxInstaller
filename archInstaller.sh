@@ -42,7 +42,7 @@ echo
 echo "Creating partitions on $DISK..."
 
 ### This if make the partitions for bios or uefi depending the case.
-if [ "$encryptFlag" = 'no' ]
+if [ "$encryptFlag" == 'no' ]
 then
   if [ "$BiosOrUefi" = '64' ]
   then
@@ -97,7 +97,7 @@ EOF
     echo "something went wrong when creating partitions. Please cancel the script with ctrl + c"
     sleep 3600
   fi
-elif [ "$encryptFlag" = 'yes' ]
+elif [ "$encryptFlag" == 'yes' ]
 then
   if [ "$BiosOrUefi" = '64' ]
   then
@@ -191,7 +191,7 @@ fi
 
 
 ###Checks if drive is sata or mvme to create file systems and mounting.
-if [ "$encryptFlag" = 'no' ]
+if [ "$encryptFlag" == 'no' ]
 then
   if [[ "$DISK" == /dev/nvme* ]]
   then
@@ -228,7 +228,7 @@ then
     mkdir -p /mnt/boot
     mount "${DISK}"1 /mnt/boot
   fi
-elif [ "$encryptFlag" = 'yes' ]
+elif [ "$encryptFlag" == 'yes' ]
 then
     if [[ "$DISK" == /dev/nvme* ]]
     then
@@ -309,7 +309,7 @@ echo "You arch linux installation is completed, just write reboot to reboot the 
 echo "by the way, you have alacritty and kitty by default terminals"
 echo "please use visudo to uncomment the wheel group if you want your user to have sudo privilege"
 
-if [ "$encryptFlag" == yes]
+if [ "$encryptFlag" == "yes" ]
 then
     echo "PLEASE READ THIS!!!"
     echo "You have installed the encrypt root partition. But you don't have grub, you will need to install it with the propper UUID to boot properly."
@@ -318,6 +318,6 @@ then
     echo "2) fstab -U /mnt >> /mnt/etc/fstab"
     echo "3) Select  the UUID of the for crypto_LUKS in the bottom of /mnt/etc/fstab and decrypted drive"
     echo "4) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=<UUIDofDecryptedPartition"
-    echo "5) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install "$DISK" "
+    echo "5) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install ""$DISK"" "
     echo "6) finally grub-mkconfig -o /boot/grub/grub.cfg"
 fi
