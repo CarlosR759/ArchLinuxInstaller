@@ -386,7 +386,6 @@ then
     echo "3) Chroot with arch-chroot /mnt"
     echo "4) Select  the UUID of the for crypto_LUKS in the bottom of /etc/default/grub and decrypted drive UUID"
     echo "5) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=<UUIDofDecryptedPartition>"
-    echo "6) Uncomment the line GRUB_ENABLE_CRYPTODISK=y in the same file"
     echo "6) In /etc/mkinitcpio.conf add in the HOOKS line encrypt lvm2"
     echo "7) run mkinitcpio -P "
     echo "8) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install ""$DISK"" "
