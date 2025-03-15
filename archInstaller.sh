@@ -118,132 +118,109 @@ EOF
   then
     if [[ "$DISK" == /dev/nvme* ]]
     then
-      spawn cryptsetup luksFormat "$DISK"p2
-      expect "Enter password: "
-      send -- "$encryptPassword\r"
-      expect "VerifyPassword: "
-      send -- "$encryptPassword\r"
-      expect eof
-
-      spawn cryptsetup open "$DISK"p2 rootDrive
-      expect "Enter drive password: "
-      send -- "$encryptPassword\r"
-      expect eof
+      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      cryptsetup luksFormat "$DISK"p2 << EOF
+$encryptPassword
+$encryptPassword
+EOF
+      cryptsetup open "$DISK"p2 rootDrive << EOF
+$encryptPassword
+$encryptPassword
+EOF
     elif [[ "$DISK" == /dev/sd* ]]
     then
-      spawn cryptsetup luksFormat "$DISK"2
-      expect "Enter password: "
-      send -- "$encryptPassword\r"
-      expect "VerifyPassword: "
-      send -- "$encryptPassword\r"
-      expect eof
-
-      spawn cryptsetup open "$DISK"2 rootDrive
-      expect "Enter drive password: "
-      send -- "$encryptPassword\r"
-      expect eof
+      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      cryptsetup luksFormat "$DISK"2 << EOF
+$encryptPassword
+$encryptPassword
+EOF
+      cryptsetup open "$DISK"2 rootDrive << EOF
+$encryptPassword
+$encryptPassword
+EOF
     elif [[ "$DISK" == /dev/vd* ]]
     then
-      spawn cryptsetup luksFormat "$DISK"2
-      expect "Enter password: "
-      send -- "$encryptPassword\r"
-      expect "VerifyPassword: "
-      send -- "$encryptPassword\r"
-      expect eof
-
-      spawn cryptsetup open "$DISK"2 rootDrive
-      expect "Enter drive password: "
-      send -- "$encryptPassword\r"
-      expect eof
+      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      cryptsetup luksFormat "$DISK"2 << EOF
+$encryptPassword
+$encryptPassword
+EOF
+      cryptsetup open "$DISK"2 rootDrive << EOF
+$encryptPassword
+$encryptPassword
+EOF
     fi
   elif [ "$BiosOrUefi" = '32' ]
   then
     if [[ "$DISK" == /dev/nvme* ]]
     then
-      spawn cryptsetup luksFormat "$DISK"p2
-      expect "Enter password: "
-      send -- "$encryptPassword\r"
-      expect "VerifyPassword: "
-      send -- "$encryptPassword\r"
-      expect eof
-
-      spawn cryptsetup open "$DISK"p2 rootDrive
-      expect "Enter drive password: "
-      send -- "$encryptPassword\r"
-      expect eof
-
+      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      cryptsetup luksFormat "$DISK"p2 << EOF
+$encryptPassword
+$encryptPassword
+EOF
+      cryptsetup open "$DISK"p2 rootDrive << EOF
+$encryptPassword
+$encryptPassword
+EOF
     elif [[ "$DISK" == /dev/sd* ]]
     then
-      spawn cryptsetup luksFormat "$DISK"2
-      expect "Enter password: "
-      send -- "$encryptPassword\r"
-      expect "VerifyPassword: "
-      send -- "$encryptPassword\r"
-      expect eof
-
-      spawn cryptsetup open "$DISK"2 rootDrive
-      expect "Enter drive password: "
-      send -- "$encryptPassword\r"
-      expect eof
-
+      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      cryptsetup luksFormat "$DISK"2 << EOF
+$encryptPassword
+$encryptPassword
+EOF
+      cryptsetup open "$DISK"2 rootDrive << EOF
+$encryptPassword
+$encryptPassword
+EOF
     elif [[ "$DISK" == /dev/vd* ]]
     then
-      spawn cryptsetup luksFormat "$DISK"2
-      expect "Enter password: "
-      send -- "$encryptPassword\r"
-      expect "VerifyPassword: "
-      send -- "$encryptPassword\r"
-      expect eof
-
-      spawn cryptsetup open "$DISK"2 rootDrive
-      expect "Enter drive password: "
-      send -- "$encryptPassword\r"
-      expect eof
-
+      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      cryptsetup luksFormat "$DISK"2 << EOF
+$encryptPassword
+$encryptPassword
+EOF
+      cryptsetup open "$DISK"2 rootDrive << EOF
+$encryptPassword
+$encryptPassword
+EOF
     fi
   elif [ "$BiosOrUefi" = '0' ]
   then
     if [[ "$DISK" == /dev/nvme* ]]
     then
-      spawn cryptsetup luksFormat "$DISK"p2
-      expect "Enter password: "
-      send -- "$encryptPassword\r"
-      expect "VerifyPassword: "
-      send -- "$encryptPassword\r"
-      expect eof
-
-      spawn cryptsetup open "$DISK"p2 rootDrive
-      expect "Enter drive password: "
-      send -- "$encryptPassword\r"
-      expect eof
-
+      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      cryptsetup luksFormat "$DISK"p2 << EOF
+$encryptPassword
+$encryptPassword
+EOF
+      cryptsetup open "$DISK"p2 rootDrive << EOF
+$encryptPassword
+$encryptPassword
+EOF
     elif [[ "$DISK" == /dev/sd* ]]
     then
-      spawn cryptsetup luksFormat "$DISK"2
-      expect "Enter password: "
-      send -- "$encryptPassword\r"
-      expect "VerifyPassword: "
-      send -- "$encryptPassword\r"
-      expect eof
-
-      spawn cryptsetup open "$DISK"2 rootDrive
-      expect "Enter drive password: "
-      send -- "$encryptPassword\r"
-      expect eof
-
+      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      cryptsetup luksFormat "$DISK"2 << EOF
+$encryptPassword
+$encryptPassword
+EOF
+      cryptsetup open "$DISK"2 rootDrive << EOF
+$encryptPassword
+$encryptPassword
+EOF
     elif [[ "$DISK" == /dev/vd* ]]
     then
-      spawn cryptsetup luksFormat "$DISK"2
-      expect "Enter password: "
-      send -- "$encryptPassword\r"
-      expect "VerifyPassword: "
-      send -- "$encryptPassword\r"
-      expect eof
-
-      spawn cryptsetup open "$DISK"2 rootDrive
-      expect "Enter drive password: "
-      send -- "$encryptPassword\r"
-      expect eof
+      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      cryptsetup luksFormat "$DISK"2 << EOF
+$encryptPassword
+$encryptPassword
+EOF
+      cryptsetup open "$DISK"2 rootDrive << EOF
+$encryptPassword
+$encryptPassword
+EOF
     fi
   else
     echo "something went wrong when creating partitions. Please cancel the script with ctrl + c"
