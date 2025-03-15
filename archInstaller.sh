@@ -99,8 +99,10 @@ EOF
   fi
 elif [ "$encryptFlag" == 'yes' ]
 then
-# Create a GPT partition table (for UEFI systems)
-  sudo fdisk "$DISK" << EOF
+  if [ "$BiosOrUefi" = '64' ]
+  then
+    # Create a GPT partition table (for UEFI systems)
+    sudo fdisk "$DISK" << EOF
 g  # Create a new empty partition table (GPT)
 n  # New partition for EFI System (512MB)
 p
@@ -114,8 +116,6 @@ p
 
 w  # Write changes and exit
 EOF
-  if [ "$BiosOrUefi" = '64' ]
-  then
     if [[ "$DISK" == /dev/nvme* ]]
     then
       read  -s -p "Please insert partition pasword for encryption: " encryptPassword
@@ -152,6 +152,21 @@ EOF
     fi
   elif [ "$BiosOrUefi" = '32' ]
   then
+    # Create a GPT partition table (for UEFI systems)
+    sudo fdisk "$DISK" << EOF
+g  # Create a new empty partition table (GPT)
+n  # New partition for EFI System (512MB)
+p
+1
+
++512M
+n  # New partition for root (/) (remaining space)
+p
+2
+
+
+w  # Write changes and exit
+EOF
     if [[ "$DISK" == /dev/nvme* ]]
     then
       read  -s -p "Please insert partition pasword for encryption: " encryptPassword
@@ -188,6 +203,20 @@ EOF
     fi
   elif [ "$BiosOrUefi" = '0' ]
   then
+    sudo fdisk  "$DISK" << EOF
+o # Create new empy partition table (MBR)
+n  # New partition for EFI System (512MB)
+p
+1
+
++512M
+n  # New partition for root (/) (remaining space)
+p
+2
+
+
+w  # Write changes and exit
+EOF
     if [[ "$DISK" == /dev/nvme* ]]
     then
       read  -s -p "Please insert partition pasword for encryption: " encryptPassword
@@ -243,7 +272,6 @@ then
     mount "${DISK}"p2 /mnt
     mkdir -p /mnt/boot
     mount "${DISK}"p1 /mnt/boot
-
   elif [[ "$DISK" == /dev/sd* ]]
   then
     echo "Formatting partitions..."
@@ -280,7 +308,6 @@ then
       mount /dev/mapper/rootDrive /mnt
       mkdir -p /mnt/boot
       mount "${DISK}"p1 /mnt/boot
-
     elif [[ "$DISK" == /dev/sd* ]]
     then
       echo "Formatting partitions..."
@@ -292,7 +319,6 @@ then
       mount /dev/mapper/rootDrive /mnt
       mkdir -p /mnt/boot
       mount "${DISK}"1 /mnt/boot
-
     elif [[ "$DISK" == /dev/vd* ]]
     then
       echo "Formatting partitions for virtual drive..."
@@ -323,13 +349,13 @@ sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
 
 if [ "$cpu_vendor" = "Intel" ]
 then
-    pacstrap -K /mnt base linux linux-firmware intel-ucode grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw
+    pacstrap -K /mnt base linux linux-firmware intel-ucode grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 elif [ "$cpu_vendor" = "AMD" ]
 then
-    pacstrap -K /mnt base linux linux-firmware amd-ucode grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw
+    pacstrap -K /mnt base linux linux-firmware amd-ucode grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 elif [ "$cpu_vendor" = "virtualMachine" ]
 then
-    pacstrap -K /mnt base linux linux-firmware grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw
+    pacstrap -K /mnt base linux linux-firmware grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 fi
 
 
@@ -350,13 +376,20 @@ echo "please use visudo to uncomment the wheel group if you want your user to ha
 
 if [ "$encryptFlag" == "yes" ]
 then
+    mount /dev/mapper/rootDrive /mnt
+    mount /dev/vda1 /mnt/boot
     echo "PLEASE READ THIS!!!"
     echo "You have installed the encrypt root partition. But you don't have grub, you will need to install it with the propper UUID to boot properly."
     echo "To do that make this:"
-    echo "1) mount your drives again"
-    echo "2) fstab -U /mnt >> /mnt/etc/fstab"
-    echo "3) Select  the UUID of the for crypto_LUKS in the bottom of /mnt/etc/fstab and decrypted drive"
-    echo "4) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=<UUIDofDecryptedPartition"
-    echo "5) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install ""$DISK"" "
-    echo "6) finally grub-mkconfig -o /boot/grub/grub.cfg"
+    echo "1) check if your drives are mounted with lsblk"
+    echo "2) blkid >> /etc/default/grub"
+    echo "3) Chroot with arch-chroot /mnt"
+    echo "4) Select  the UUID of the for crypto_LUKS in the bottom of /etc/default/grub and decrypted drive UUID"
+    echo "5) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=<UUIDofDecryptedPartition>"
+    echo "6) Uncomment the line GRUB_ENABLE_CRYPTODISK=y in the same file"
+    echo "6) In /etc/mkinitcpio.conf add in the HOOKS line encrypt lvm2"
+    echo "7) run mkinitcpio -P "
+    echo "8) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install ""$DISK"" "
+    echo "9) finally grub-mkconfig -o /boot/grub/grub.cfg"
+    echo"Then exit and reboot"
 fi

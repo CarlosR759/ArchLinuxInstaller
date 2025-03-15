@@ -74,7 +74,7 @@ mkinitcpio -P
 # GRUB INSTALLATION AND CONFIGURATION
 BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 
-if [ "$encryptFlag" == 'no']
+if [ "$encryptFlag" == 'no' ]
 then
   if [ "$BiosOrUefi" = '64' ]
   then
