@@ -99,106 +99,152 @@ EOF
   fi
 elif [ "$encryptFlag" == 'yes' ]
 then
+# Create a GPT partition table (for UEFI systems)
+  sudo fdisk "$DISK" << EOF
+g  # Create a new empty partition table (GPT)
+n  # New partition for EFI System (512MB)
+p
+1
+
++512M
+n  # New partition for root (/) (remaining space)
+p
+2
+
+
+w  # Write changes and exit
+EOF
   if [ "$BiosOrUefi" = '64' ]
   then
     if [[ "$DISK" == /dev/nvme* ]]
     then
-      cryptsetup luksFormat "$DISK"p1
-      echo "Please introduce your password to open drive"
-      crypsetup open "$DISK"p2 rootDrive
+      spawn cryptsetup luksFormat "$DISK"p2
+      expect "Enter password: "
+      send -- "$encryptPassword\r"
+      expect "VerifyPassword: "
+      send -- "$encryptPassword\r"
+      expect eof
+
+      spawn cryptsetup open "$DISK"p2 rootDrive
+      expect "Enter drive password: "
+      send -- "$encryptPassword\r"
+      expect eof
     elif [[ "$DISK" == /dev/sd* ]]
     then
-      cryptsetup luksFormat "$DISK"2
-      echo "Please introduce your password to open drive"
-      crypsetup open "$DISK"2 rootDrive
+      spawn cryptsetup luksFormat "$DISK"2
+      expect "Enter password: "
+      send -- "$encryptPassword\r"
+      expect "VerifyPassword: "
+      send -- "$encryptPassword\r"
+      expect eof
+
+      spawn cryptsetup open "$DISK"2 rootDrive
+      expect "Enter drive password: "
+      send -- "$encryptPassword\r"
+      expect eof
     elif [[ "$DISK" == /dev/vd* ]]
     then
-      cryptsetup luksFormat "$DISK"2
-      echo "Please introduce your password to open drive"
-      crypsetup open "$DISK"2 rootDrive
+      spawn cryptsetup luksFormat "$DISK"2
+      expect "Enter password: "
+      send -- "$encryptPassword\r"
+      expect "VerifyPassword: "
+      send -- "$encryptPassword\r"
+      expect eof
+
+      spawn cryptsetup open "$DISK"2 rootDrive
+      expect "Enter drive password: "
+      send -- "$encryptPassword\r"
+      expect eof
     fi
-
-    # Create a GPT partition table (for UEFI systems)
-    sudo fdisk "$DISK" << EOF
-g  # Create a new empty partition table (GPT)
-n  # New partition for EFI System (512MB)
-p
-1
-
-+512M
-n  # New partition for root (/) (remaining space)
-p
-2
-
-
-w  # Write changes and exit
-EOF
   elif [ "$BiosOrUefi" = '32' ]
   then
     if [[ "$DISK" == /dev/nvme* ]]
     then
-      cryptsetup luksFormat "$DISK"p2
-      echo "Please introduce your password to open drive"
-      crypsetup open "$DISK"p2 rootDrive
+      spawn cryptsetup luksFormat "$DISK"p2
+      expect "Enter password: "
+      send -- "$encryptPassword\r"
+      expect "VerifyPassword: "
+      send -- "$encryptPassword\r"
+      expect eof
+
+      spawn cryptsetup open "$DISK"p2 rootDrive
+      expect "Enter drive password: "
+      send -- "$encryptPassword\r"
+      expect eof
+
     elif [[ "$DISK" == /dev/sd* ]]
     then
-      cryptsetup luksFormat "$DISK"2
-      echo "Please introduce your password to open drive"
-      crypsetup open "$DISK"2 rootDrive
+      spawn cryptsetup luksFormat "$DISK"2
+      expect "Enter password: "
+      send -- "$encryptPassword\r"
+      expect "VerifyPassword: "
+      send -- "$encryptPassword\r"
+      expect eof
+
+      spawn cryptsetup open "$DISK"2 rootDrive
+      expect "Enter drive password: "
+      send -- "$encryptPassword\r"
+      expect eof
+
     elif [[ "$DISK" == /dev/vd* ]]
     then
-      cryptsetup luksFormat "$DISK"2
-      echo "Please introduce your password to open drive"
-      crypsetup open "$DISK"2 rootDrive
+      spawn cryptsetup luksFormat "$DISK"2
+      expect "Enter password: "
+      send -- "$encryptPassword\r"
+      expect "VerifyPassword: "
+      send -- "$encryptPassword\r"
+      expect eof
+
+      spawn cryptsetup open "$DISK"2 rootDrive
+      expect "Enter drive password: "
+      send -- "$encryptPassword\r"
+      expect eof
+
     fi
-
-    sudo fdisk "$DISK" << EOF
-g  # Create a new empty partition table (GPT)
-n  # New partition for EFI System (512MB)
-p
-1
-
-+512M
-n  # New partition for root (/) (remaining space)
-p
-2
-
-
-w  # Write changes and exit
-EOF
   elif [ "$BiosOrUefi" = '0' ]
   then
     if [[ "$DISK" == /dev/nvme* ]]
     then
-      cryptsetup luksFormat "$DISK"p2
-      echo "Please introduce your password to open drive"
-      crypsetup open "$DISK"p2 rootDrive
+      spawn cryptsetup luksFormat "$DISK"p2
+      expect "Enter password: "
+      send -- "$encryptPassword\r"
+      expect "VerifyPassword: "
+      send -- "$encryptPassword\r"
+      expect eof
+
+      spawn cryptsetup open "$DISK"p2 rootDrive
+      expect "Enter drive password: "
+      send -- "$encryptPassword\r"
+      expect eof
+
     elif [[ "$DISK" == /dev/sd* ]]
     then
-      cryptsetup luksFormat "$DISK"2
-      echo "Please introduce your password to open drive"
-      crypsetup open "$DISK"2 rootDrive
+      spawn cryptsetup luksFormat "$DISK"2
+      expect "Enter password: "
+      send -- "$encryptPassword\r"
+      expect "VerifyPassword: "
+      send -- "$encryptPassword\r"
+      expect eof
+
+      spawn cryptsetup open "$DISK"2 rootDrive
+      expect "Enter drive password: "
+      send -- "$encryptPassword\r"
+      expect eof
+
     elif [[ "$DISK" == /dev/vd* ]]
     then
-      cryptsetup luksFormat "$DISK"2
-      echo "Please introduce your password to open drive"
-      crypsetup open "$DISK"2 rootDrive
+      spawn cryptsetup luksFormat "$DISK"2
+      expect "Enter password: "
+      send -- "$encryptPassword\r"
+      expect "VerifyPassword: "
+      send -- "$encryptPassword\r"
+      expect eof
+
+      spawn cryptsetup open "$DISK"2 rootDrive
+      expect "Enter drive password: "
+      send -- "$encryptPassword\r"
+      expect eof
     fi
-
-    sudo fdisk  "$DISK" << EOF
-o # Create new empy partition table (MBR)
-n  # New partition for EFI System (512MB)
-p
-1
-
-+512M
-n  # New partition for root (/) (remaining space)
-p
-2
-
-
-w  # Write changes and exit
-EOF
   else
     echo "something went wrong when creating partitions. Please cancel the script with ctrl + c"
     sleep 3600
