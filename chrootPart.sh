@@ -151,10 +151,10 @@ then
     cd /home/"$User"
     wget -O ~/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
     git clone https://github.com/CarlosR759/wallpapers
-    echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
-    echo "picom -b &" >> ~/.xinitrc
-    echo "dwmblocks &" >> ~/.xinitrc
-    echo "dwm 2> ~/.dwm.log" >> ~/.xinitrc
+    echo "feh --bg-scale ~/wallpapers/container_ship.png" >> /home/"$User"/.xinitrc
+    echo "picom -b &" >> /home/"$User"/.xinitrc
+    echo "dwmblocks &" >> /home/"$User"/.xinitrc
+    echo "dwm 2> ~/.dwm.log" >> /home/"$User"/.xinitrc
 fi
 
 systemctl enable ufw
