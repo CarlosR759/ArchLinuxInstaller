@@ -360,7 +360,7 @@ fi
 
 
 genfstab -U /mnt >> /mnt/etc/fstab
-cp /root/archLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
+cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
 arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag"
 
 umount -R /mnt
@@ -385,10 +385,10 @@ then
     echo "2) blkid >> /etc/default/grub"
     echo "3) Chroot with arch-chroot /mnt"
     echo "4) Select  the UUID of the for crypto_LUKS in the bottom of /etc/default/grub and decrypted drive UUID"
-    echo "5) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=<UUIDofDecryptedPartition>"
+    echo "5) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=UUID=<UUIDofDecryptedPartition>"
     echo "6) In /etc/mkinitcpio.conf add in the HOOKS line encrypt lvm2"
     echo "7) run mkinitcpio -P "
     echo "8) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install ""$DISK"" "
     echo "9) finally grub-mkconfig -o /boot/grub/grub.cfg"
-    echo"Then exit and reboot"
+    echo "Then exit and reboot"
 fi
