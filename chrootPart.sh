@@ -29,8 +29,8 @@ pacman -Syyu
 
 #Ntp conf and locale conf
 systemctl enable ntpd.service
-locale-gen
 echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+locale-gen
 
 #Network configuration part#
 read -r -p "Please insert your desire hostname name: " Hostname
@@ -38,7 +38,7 @@ echo
 echo "$Hostname" >> /etc/hostname
 echo "127.0.0.1       localhost" >> /etc/hosts
 echo "::1             localhost" >> /etc/hosts
-echo "127.0.1.1       $Hostname.localdomain $Hostname" >> /etc/hosts
+echo "127.0.1.1       $Hostname.localdomain.$Hostname" >> /etc/hosts
 systemctl enable NetworkManager.service
 
 #Setting root password
