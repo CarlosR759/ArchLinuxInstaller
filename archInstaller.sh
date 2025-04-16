@@ -349,13 +349,13 @@ sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
 
 if [ "$cpu_vendor" = "Intel" ]
 then
-    pacstrap -K /mnt base linux linux-firmware intel-ucode grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
+    pacstrap -K /mnt base linux linux-firmware intel-ucode efibootmgr grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 elif [ "$cpu_vendor" = "AMD" ]
 then
-    pacstrap -K /mnt base linux linux-firmware amd-ucode grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
+    pacstrap -K /mnt base linux linux-firmware amd-ucode grub efibootmgr man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 elif [ "$cpu_vendor" = "virtualMachine" ]
 then
-    pacstrap -K /mnt base linux linux-firmware grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
+    pacstrap -K /mnt base linux linux-firmware grub efibootmgr man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 fi
 
 

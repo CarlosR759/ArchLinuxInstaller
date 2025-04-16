@@ -97,9 +97,9 @@ if [[ "$answer" = 'yes'  && "$User" = '0' ]]
 then
     pacman -S git rofi lf xorg xorg-xinit base base-devel wget ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd
+    mkdir programs && cd programs
     git clone https://github.com/CarlosR759/dwm-rice
     git clone https://github.com/CarlosR759/dmenu-rice
-    mkdir programs && cd programs
     git clone https://github.com/CarlosR759/dwmBlocks-rice
 
     cd ~/dwm-rice
@@ -128,9 +128,9 @@ elif [[ "$answer" = 'yes' && "$User" != '0' ]]
 then
     pacman -S git rofi lf xorg xorg-xinit base base-devel wget ntp feh picom nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd /home/"$User"
+    mkdir programs && cd programs
     git clone https://github.com/CarlosR759/dwm-rice
     git clone https://github.com/CarlosR759/dmenu-rice
-    mkdir programs && cd programs
     git clone https://github.com/CarlosR759/dwmBlocks-rice
 
     cd /home/"$User"/dwm-rice
