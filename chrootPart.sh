@@ -95,7 +95,7 @@ echo
 
 if [[ "$answer" = 'yes'  && "$User" = '0' ]]
 then
-    pacman -S git rofi lf xorg xorg-xinit base base-devel wget ntp feh picom calcurse task nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
+    pacman -S git rofi lf xorg xorg-xinit base base-devel wget ntp feh picom calcurse task fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd
     mkdir programs && cd programs
     git clone https://github.com/CarlosR759/dwm-rice
@@ -126,7 +126,7 @@ then
     echo "dwm 2> ~/.dwm.log" >> ~/.xinitrc
 elif [[ "$answer" = 'yes' && "$User" != '0' ]]
 then
-    pacman -S git rofi lf xorg xorg-xinit base base-devel wget ntp feh picom calcurse task nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
+    pacman -S git rofi lf xorg xorg-xinit base base-devel wget ntp feh picom calcurse task fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd /home/"$User"
     mkdir programs && cd programs
     git clone https://github.com/CarlosR759/dwm-rice
