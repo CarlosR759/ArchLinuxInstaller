@@ -370,7 +370,9 @@ partitionLuskID=$(blkid | awk -F'"' 'NR == 3 { print $2 }') #Same as before
 
 sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionHardwareID:cryptlvm root=UUID=$partitionLuskID/" /etc/default/grub
 sed -i "/^HOOKS=/ s/\(([^)]*)\)/(\1 encrypt lvm2)/" /etc/mkinitcpio.conf
-arch-chroot /mnt "$DISK" "$BiosOrUefi"
+
+cp /root/ArchLinuxInstaller/endingSetup.sh /mnt/endingSetup.sh
+arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
 
 umount -R /mnt
 
