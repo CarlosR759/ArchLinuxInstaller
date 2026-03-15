@@ -363,6 +363,15 @@ genfstab -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
 arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag"
 
+#Setting up lusk partition for booting up
+
+partitionHardwareID=$(blkid | awk -F'"' 'NR == 2 { print $2 }') #This lines assumes that always the second drive is encrypted
+partitionLuskID=$(blkid | awk -F'"' 'NR == 3 { print $2 }') #Same as before
+
+sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionHardwareID:cryptlvm root=UUID=$partitionLuskID/" /etc/default/grub
+sed -i "/^HOOKS=/ s/\(([^)]*)\)/(\1 encrypt lvm2)/" /etc/mkinitcpio.conf
+arch-chroot /mnt
+
 umount -R /mnt
 
 echo "#####################################################"
@@ -386,7 +395,7 @@ then
     echo "3) Chroot with arch-chroot /mnt"
     echo "4) Select  the UUID of the for crypto_LUKS in the bottom of /etc/default/grub and decrypted drive UUID"
     echo "5) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=UUID=<UUIDofDecryptedPartition>"
-    echo "6) In /etc/mkinitcpio.conf add in the HOOKS line encrypt lvm2"
+    echo "6) In /etc/mkinitcpio.conf add in the HOOKS line: encrypt lvm2"
     echo "7) run mkinitcpio -P "
     echo "8) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install ""$DISK"" "
     echo "9) finally grub-mkconfig -o /boot/grub/grub.cfg"
