@@ -9,6 +9,12 @@
 DISK="$1"
 BiosOrUefi="$2"
 
+
+echo "Checking variables after chrooting: "
+echo "DISK: $disk"
+echo "BiosUEFI: $BiosOrUefi"
+sleep 10
+
 mkinitcpio -P
 
 if [ "$BiosOrUefi" = '64' ]
