@@ -371,7 +371,7 @@ echo "Checking partition variables: "
 echo "$partitionHardwareID"
 echo "$partitionLuskID"
 
-sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionHardwareID:cryptlvm root=UUID=$partitionLuskID/" /mnt/etc/default/grub
+sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionLuskID:cryptlvm root=UUID=$partitionHardwareID/" /mnt/etc/default/grub
 #sed -i "/^HOOKS=/ s/\(([^)]*)\)/(\1 encrypt lvm2)/" /mnt/etc/mkinitcpio.conf Delete this in the future.
 sed -i "/^HOOKS=/ s/\([^)]*\)/\1 encrypt lvm2/" /mnt/etc/mkinitcpio.conf
 
