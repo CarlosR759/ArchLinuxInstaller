@@ -367,8 +367,12 @@ arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag"
 partitionHardwareID=$(blkid | awk -F'"' 'NR == 2 { print $2 }') #This lines assumes that always the second drive is encrypted
 partitionLuskID=$(blkid | awk -F'"' 'NR == 3 { print $2 }') #Same as before
 
-sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionHardwareID:cryptlvm root=UUID=$partitionLuskID/" /etc/default/grub
-sed -i "/^HOOKS=/ s/\(([^)]*)\)/(\1 encrypt lvm2)/" /etc/mkinitcpio.conf
+echo "Checking partition variables: "
+echo "$partitionHardwareID"
+echo "$partitionLuskID"
+
+sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionHardwareID:cryptlvm root=UUID=$partitionLuskID/" /mnt/etc/default/grub
+sed -i "/^HOOKS=/ s/\(([^)]*)\)/(\1 encrypt lvm2)/" /mnt/etc/mkinitcpio.conf
 
 cp /root/ArchLinuxInstaller/endingSetup.sh /mnt/endingSetup.sh
 

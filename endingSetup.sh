@@ -11,7 +11,7 @@ BiosOrUefi="$2"
 
 
 echo "Checking variables after chrooting: "
-echo "DISK: $disk"
+echo "DISK: $DISK"
 echo "BiosUEFI: $BiosOrUefi"
 sleep 10
 
