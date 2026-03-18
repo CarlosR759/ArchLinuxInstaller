@@ -377,6 +377,7 @@ sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\"$/ cryptdevice=UUID=$partitionHardwar
 #sed -i "/^HOOKS=/ s/\(([^)]*)\)/(\1 encrypt lvm2)/" /mnt/etc/mkinitcpio.conf Delete this in the future.
 sed -i "/^HOOKS=/ s/\([^)]*\)/\1 encrypt lvm2/" /mnt/etc/mkinitcpio.conf
 
+fstabgen -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/endingSetup.sh /mnt/endingSetup.sh
 
 echo "Checking variables before chrooting: "
