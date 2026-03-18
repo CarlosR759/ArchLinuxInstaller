@@ -10,10 +10,7 @@ DISK="$1"
 BiosOrUefi="$2"
 
 
-echo "Checking variables after chrooting: "
-echo "DISK: $DISK"
-echo "BiosUEFI: $BiosOrUefi"
-sleep 10
+pacman -S cryptsetup --noconfirm
 
 mkinitcpio -P
 
