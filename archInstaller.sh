@@ -373,16 +373,21 @@ echo "$partitionLuskID"
 
 #sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionLuskID:cryptlvm root=UUID=$partitionHardwareID/" /mnt/etc/default/grub
 #sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionLuskID:cryptlvm root=UUID=$partitionHardwareID/" /mnt/etc/default/grub
-sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\"$/ cryptdevice=UUID=$partitionHardwareID:rootDrive root=\"/" /mnt/etc/default/grub
+sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\"$/ cryptdevice=UUID=$partitionHardwareID:rootDrive \"/" /mnt/etc/default/grub
 #sed -i "/^HOOKS=/ s/\(([^)]*)\)/(\1 encrypt lvm2)/" /mnt/etc/mkinitcpio.conf Delete this in the future.
-sed -i "/^HOOKS=/ s/\([^)]*\)/\1 encrypt lvm2/" /mnt/etc/mkinitcpio.conf
+#sed -i "/^HOOKS=/ s/\([^)]*\)/\1 encrypt lvm2/" /mnt/etc/mkinitcpio.conf
+sed -i 's/\(block\)/\1 encrypt lvm2/' /mnt/etc/mkinitcpio.conf
+
+
 
 cp /root/ArchLinuxInstaller/endingSetup.sh /mnt/endingSetup.sh
 
 echo "Checking variables before chrooting: "
 echo "DISK: $DISK"
 echo "BiosOrUefi: $BiosOrUefi"
-sleep 2
+sleep 1
+
+touch /mnt/etc/vconsole.conf #Dummy vconsole conf file
 arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
 
 umount -R /mnt
