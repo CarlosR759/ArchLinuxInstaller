@@ -69,7 +69,11 @@ else
     User='0' #This help in the last if block to check if a user was made or not
 fi
 
-mkinitcpio -P
+#initcpio only for unencrypted devices. It avoids making it twice in the opposite case
+if [ "$encryptFlag" == 'no' ]
+then
+    mkinitcpio -P
+fi
 
 # GRUB INSTALLATION AND CONFIGURATION
 BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)

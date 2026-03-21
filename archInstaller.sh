@@ -361,6 +361,7 @@ fi
 
 genfstab -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
+touch /mnt/etc/vconsole.conf #Dummy vconsole conf file
 arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag"
 
 #Setting up lusk partition for booting up
@@ -373,7 +374,7 @@ echo "$partitionLuskID"
 
 #sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionLuskID:cryptlvm root=UUID=$partitionHardwareID/" /mnt/etc/default/grub
 #sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionLuskID:cryptlvm root=UUID=$partitionHardwareID/" /mnt/etc/default/grub
-sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\"$/ cryptdevice=UUID=$partitionHardwareID:rootDrive \"/" /mnt/etc/default/grub
+sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\"$/ cryptdevice=UUID=$partitionHardwareID:rootDrive\"/" /mnt/etc/default/grub
 #sed -i "/^HOOKS=/ s/\(([^)]*)\)/(\1 encrypt lvm2)/" /mnt/etc/mkinitcpio.conf Delete this in the future.
 #sed -i "/^HOOKS=/ s/\([^)]*\)/\1 encrypt lvm2/" /mnt/etc/mkinitcpio.conf
 sed -i 's/\(block\)/\1 encrypt lvm2/' /mnt/etc/mkinitcpio.conf
@@ -387,7 +388,6 @@ echo "DISK: $DISK"
 echo "BiosOrUefi: $BiosOrUefi"
 sleep 1
 
-touch /mnt/etc/vconsole.conf #Dummy vconsole conf file
 arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
 
 umount -R /mnt
