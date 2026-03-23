@@ -92,6 +92,10 @@ then
   grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
+#Generating locale conf
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US ISO-8859-1" >> /etc/locale.gen
+locale-gen
 
 ### Installing window manager
 read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer
