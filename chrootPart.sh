@@ -243,7 +243,7 @@ then
 fi
 
 
-systemctl enable ufw --now
+systemctl enable ufw
 ufw default deny incoming
 ufw default allow outgoing
 rm -rf /chrootPart.sh

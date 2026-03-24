@@ -378,10 +378,10 @@ sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\"$/ cryptdevice=UUID=$partitionHardwar
 #Making a busybox approach instead of systemd for mount encrypted root partition
 if [[ "$encryptFlag" = 'yes' ]]
 then
-sed -i '/^HOOKS=/ s/\bsystemd\b//' /mnt/etc/mkinitcpio.conf
-sed -i 's/\(base\)/\1 udev/' /mnt/etc/mkinitcpio.conf
-sed -i '/^HOOKS=/ s/\bsd-vconsole\b/consolefont/' /mnt/etc/mkinitcpio.conf
-sed -i 's/\(block\)/\1 encrypt lvm2/' /mnt/etc/mkinitcpio.conf
+    sed -i '/^HOOKS=/ s/\bsystemd\b//' /mnt/etc/mkinitcpio.conf
+    sed -i 's/\(base\)/\1 udev/' /mnt/etc/mkinitcpio.conf
+    sed -i '/^HOOKS=/ s/\bsd-vconsole\b/consolefont/' /mnt/etc/mkinitcpio.conf
+    sed -i 's/\(block\)/\1 encrypt lvm2/' /mnt/etc/mkinitcpio.conf
 fi
 
 
