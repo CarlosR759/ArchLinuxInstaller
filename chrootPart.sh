@@ -112,9 +112,9 @@ then
     git clone https://github.com/CarlosR759/dmenu-rice
     git clone https://github.com/CarlosR759/dwmBlocks-rice
 
-    cd ~/dwm-rice
+    cd ~/programs/dwm-rice
     make clean install
-    cd ~/dmenu-rice
+    cd ~/programs/dmenu-rice
     make clean install
     cd ~/programs/dwmBlocks-rice
     make clean install
@@ -122,18 +122,18 @@ then
     cd ~/.config
     git clone https://github.com/CarlosR759/mydotfiles .
     cp /etc/X11/xinit/xinitrc ~/.xinitrc
-    sed -i 's/^$twm &//' ~/.xinitrc
-    sed -i 's/^$xclock -geometry 50x50-1+1 &//' ~/.xinitrc
-    sed -i 's/^$xterm -geometry 80x50+494+51 &//' ~/.xinitrc
-    sed -i 's/^$xterm -geometry 80x20+494-0 &//' ~/.xinitrc
-    sed -i 's/^exec $xterm -geometry 80x66+0+0 -name login//' ~/.xinitrc
+    sed -i 's/^$twm &//' /home/root/.xinitrc
+    sed -i 's/^$xclock -geometry 50x50-1+1 &//' /home/root/.xinitrc
+    sed -i 's/^$xterm -geometry 80x50+494+51 &//' /home/root/.xinitrc
+    sed -i 's/^$xterm -geometry 80x20+494-0 &//' /home/root/.xinitrc
+    sed -i 's/^exec $xterm -geometry 80x66+0+0 -name login//' /home/root/.xinitrc
     cd
     wget -O ~/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
     git clone https://github.com/CarlosR759/wallpapers
-    echo "feh --bg-scale ~/wallpapers/container_ship.png" >> ~/.xinitrc
-    echo "picom -b &" >> ~/.xinitrc
-    echo "dwmblocks &" >> ~/.xinitrc
-    echo "dwm 2> ~/.dwm.log" >> ~/.xinitrc
+    echo "feh --bg-scale ~/wallpapers/container_ship.png" >> /home/root/.xinitrc
+    echo "picom -b &" >> /home/root/.xinitrc
+    echo "dwmblocks &" >> /home/root/.xinitrc
+    echo "dwm 2> ~/.dwm.log" >> /home/root/.xinitrc
 elif [[ "$answer" = 'yes' && "$User" != '0' ]]
 then
     pacman -S rofi lf xorg xorg-xinit base base-devel ntp feh picom calcurse task fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
@@ -143,9 +143,9 @@ then
     git clone https://github.com/CarlosR759/dmenu-rice
     git clone https://github.com/CarlosR759/dwmBlocks-rice
 
-    cd /home/"$User"/dwm-rice
+    cd /home/"$User"/programs/dwm-rice
     make clean install
-    cd /home/"$User"/dmenu-rice
+    cd /home/"$User"/programs/dmenu-rice
     make clean install
     cd /home/"$User"/programs/dwmBlocks-rice
     make clean install
