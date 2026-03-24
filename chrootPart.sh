@@ -60,7 +60,8 @@ then
     then
         useradd -m "$User"
         usermod -aG wheel "$User"
-        sed -i 's/^#\s*%wheel\sALL=(ALL)\sALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+       # sed -i 's/^#\s*%wheel\sALL=(ALL)\sALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+        sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
         echo "You will need to create your "$User" password now."
         psswd_check
         echo "$Password" | passwd --stdin "$User"
