@@ -97,8 +97,9 @@ And enjoy your new Arch machine after rebooting ^^
 #### I found an issue in the script. Can i send it back so it can be fixed ?
 
 <details>
-    <summary> I found an issue in the script. Can I send it back so it can be fixed ? </summary> 
-      Yes, I only need a description to make the bug reproducible if you found something. Just send the problem into issues and with an explanation on how to make it reproducible the error. For that you must try more than once the installation, so I can be sure that it wasn't an ISO enviroment initialization error, which sometimes can happend. So always try it twice, to confirm that is a reproducible bug and not also and ISO init issue. 
-      
-      You can also try to make a pull request if you want, but please do not add new software to the Arch Installation, this script tries to be minimal as possible, so it can ends in a point from which the users can choose how to continue modifying their machines.
+  <summary>I found an issue in the script. Can I send it back so it can be fixed?</summary>
+
+  Yes, I only need a description to make the bug reproducible if you found something. Just send the problem into issues and with an explanation on how to make it reproducible the error. For that you must try more than once the installation, so I can be sure that it wasn't an ISO environment initialization error, which sometimes can happen. So always try it twice, to confirm that it's a reproducible bug and not also an ISO init issue.
+
+  You can also try to make a pull request if you want, but please do not add new software to the Arch Installation, this script tries to be minimal as possible, so it can end in a point from which the users can choose how to continue modifying their machines.
 </details>
