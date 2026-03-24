@@ -393,6 +393,7 @@ echo "DISK: $DISK"
 echo "BiosOrUefi: $BiosOrUefi"
 sleep 1
 
+#Needs to make if for not running it for non encrypted partitions
 arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
 
 umount -R /mnt

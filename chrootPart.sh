@@ -97,7 +97,7 @@ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "en_US ISO-8859-1" >> /etc/locale.gen
 locale-gen
 
-### Installing window manager
+### Installing dwm window manager
 read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer
 echo
 
@@ -163,6 +163,21 @@ then
     echo "picom -b &" >> /home/"$User"/.xinitrc
     echo "dwmblocks &" >> /home/"$User"/.xinitrc
     echo "dwm 2> ~/.dwm.log" >> /home/"$User"/.xinitrc
+fi
+
+### Installing Hyprland window manager
+read -r -p "Do you want to install DWM for window manager support ? write yes or no: " hyprAnswer
+echo
+if [[ "$hyprAnwser" = 'yes'  && "$User" != '0' ]]
+then
+    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset
+    mkdir -p /home/"$User"/.config/hypr/
+    cd /home/"$User"/.config/hypr/ && git clone https://github.com/CarlosR759/HyprConfs
+elif [[ "$answer" = 'yes' && "$User" == '0' ]]
+then
+    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset
+    mkdir -p /home/root/.config/hypr/
+    cd /home/root/.config/hypr/ && git clone https://github.com/CarlosR759/HyprConfs
 fi
 
 systemctl enable ufw
