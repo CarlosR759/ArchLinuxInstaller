@@ -218,6 +218,13 @@ then
         pacman -S gnome --noconfirm
         systemctl enable gdm.service
     fi
+    read -r -p "Do you want to install Cosmic desktop ? Write yes or no: " CosmicAnswer
+    echo
+    if [[ "$CosmicAnswer" = 'yes' ]]
+    then
+        pacman -S cosmic --noconfirm
+        systemctl enable cosmic-greeter.service
+    fi
     read -r -p "Do you want to install Xfce desktop ? Write yes or no: " XfceAnswer
     echo
     if [[ "$XfceAnswer" = 'yes' ]]
