@@ -79,25 +79,23 @@ And enjoy your new Arch machine after rebooting ^^
 #### Can i just install one desktop or window manager ?
 
 <details>
-  <content>
+  <summary></summary>
       Yes you can. The script is made in mind so you can install and choose any option you want, usage of window managers or desktops are not mandatory.
-  </content>
 </details>
 
 
 #### Can i just live in a TTY terminal ? 
 
 <details>
-  <content>
+  <summary></summary>
       Yes, you can live just in a terminal. You just need to write no in any question that ask for WM/Desktop installation.
-  </content>
 </details>
 
 
 #### I found an issue in the script. Can i send it back so it can be fixed ?
 
 <details>
-  <summary>I found an issue in the script. Can I send it back so it can be fixed?</summary>
+  <summary></summary>
 
   Yes, I only need a description to make the bug reproducible if you found something. Just send the problem into issues and with an explanation on how to make it reproducible the error. For that you must try more than once the installation, so I can be sure that it wasn't an ISO environment initialization error, which sometimes can happen. So always try it twice, to confirm that it's a reproducible bug and not also an ISO init issue.
 
