@@ -171,14 +171,16 @@ echo
 
 if [[ "$hyprAnswer" = 'yes'  && "$User" != '0' ]]
 then
-    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset
+    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset --noconfirm
     mkdir -p /home/"$User"/.config/hypr/
-    cd /home/"$User"/.config/hypr/ && git clone https://github.com/CarlosR759/HyprConfs
+    cd /home/"$User"/.config/hypr/
+    git clone https://github.com/CarlosR759/HyprConfs
 elif [[ "$hyprAnswer" = 'yes' && "$User" == '0' ]]
 then
-    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset
+    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset --noconfirm
     mkdir -p /home/root/.config/hypr/
-    cd /home/root/.config/hypr/ && git clone https://github.com/CarlosR759/HyprConfs
+    cd /home/root/.config/hypr/
+    git clone https://github.com/CarlosR759/HyprConfs
 fi
 
 systemctl enable ufw

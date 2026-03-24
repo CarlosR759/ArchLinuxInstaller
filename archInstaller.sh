@@ -394,7 +394,11 @@ echo "BiosOrUefi: $BiosOrUefi"
 sleep 1
 
 #Needs to make if for not running it for non encrypted partitions
-arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
+
+if [[ "$encryptFlag" = 'yes' ]]
+then
+    arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
+fi
 
 umount -R /mnt
 
