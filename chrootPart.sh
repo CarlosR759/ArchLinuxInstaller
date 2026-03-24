@@ -8,10 +8,10 @@ psswd_check() {
     while true; do
         read -s -p "Enter password: " Password
         echo
-        read -s -p "Confirm password: " confirm
+        read -s -p "Confirm password: " Confirm
         echo
 
-        if [ "$Password" == "$confirm" ]; then
+        if [ "$Password" == "$Confirm" ]; then
             break
         else
             echo "Passwords do not match. Please try again."

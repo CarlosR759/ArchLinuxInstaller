@@ -1,5 +1,21 @@
 #!/bin/sh
 
+#Function to check encryption psswd
+crypt_psswd_check() {
+    while true; do
+        read -s -p "Please insert partition pasword for encryption: "  encryptPassword
+        echo
+        read -s -p "Confirm password again: " cryptConfirm
+        echo
+
+        if [ "$encryptPassword" == "$cryptConfirm" ]; then
+            break
+        else
+            echo "Passwords do not match. Please try again."
+        fi
+    done
+}
+
 #let's set fonts for HIDPI screens
 setfont ter-132b
 
@@ -118,7 +134,7 @@ w  # Write changes and exit
 EOF
     if [[ "$DISK" == /dev/nvme* ]]
     then
-      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      crypt_psswd_check
       cryptsetup luksFormat "$DISK"p2 << EOF
 $encryptPassword
 $encryptPassword
@@ -129,7 +145,7 @@ $encryptPassword
 EOF
     elif [[ "$DISK" == /dev/sd* ]]
     then
-      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      crypt_psswd_check
       cryptsetup luksFormat "$DISK"2 << EOF
 $encryptPassword
 $encryptPassword
@@ -140,7 +156,7 @@ $encryptPassword
 EOF
     elif [[ "$DISK" == /dev/vd* ]]
     then
-      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      crypt_psswd_check
       cryptsetup luksFormat "$DISK"2 << EOF
 $encryptPassword
 $encryptPassword
@@ -169,7 +185,7 @@ w  # Write changes and exit
 EOF
     if [[ "$DISK" == /dev/nvme* ]]
     then
-      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      crypt_psswd_check
       cryptsetup luksFormat "$DISK"p2 << EOF
 $encryptPassword
 $encryptPassword
@@ -180,7 +196,7 @@ $encryptPassword
 EOF
     elif [[ "$DISK" == /dev/sd* ]]
     then
-      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      crypt_psswd_check
       cryptsetup luksFormat "$DISK"2 << EOF
 $encryptPassword
 $encryptPassword
@@ -191,7 +207,7 @@ $encryptPassword
 EOF
     elif [[ "$DISK" == /dev/vd* ]]
     then
-      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      crypt_psswd_check
       cryptsetup luksFormat "$DISK"2 << EOF
 $encryptPassword
 $encryptPassword
@@ -219,7 +235,7 @@ w  # Write changes and exit
 EOF
     if [[ "$DISK" == /dev/nvme* ]]
     then
-      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      crypt_psswd_check
       cryptsetup luksFormat "$DISK"p2 << EOF
 $encryptPassword
 $encryptPassword
@@ -230,7 +246,7 @@ $encryptPassword
 EOF
     elif [[ "$DISK" == /dev/sd* ]]
     then
-      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      crypt_psswd_check
       cryptsetup luksFormat "$DISK"2 << EOF
 $encryptPassword
 $encryptPassword
@@ -241,7 +257,7 @@ $encryptPassword
 EOF
     elif [[ "$DISK" == /dev/vd* ]]
     then
-      read  -s -p "Please insert partition pasword for encryption: " encryptPassword
+      crypt_psswd_check
       cryptsetup luksFormat "$DISK"2 << EOF
 $encryptPassword
 $encryptPassword
