@@ -171,7 +171,7 @@ echo
 
 if [[ "$hyprAnswer" = 'yes'  && "$User" != '0' ]]
 then
-    pacman -S git wget hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
+    pacman -S git wget hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset mesa libglvnd xf86-video-virtio-gpu rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/"$User"/.config/
     cd /home/"$User"/.config/
     git clone https://github.com/CarlosR759/mydotfiles .
@@ -184,7 +184,7 @@ then
     wget -O /home/"$User"/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
 elif [[ "$hyprAnswer" = 'yes' && "$User" == '0' ]]
 then
-    pacman -S git wget hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
+    pacman -S git wget hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset mesa libglvnd xf86-video-virtio-gpu rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/root/.config/
     cd /home/root/.config/
     git clone https://github.com/CarlosR759/mydotfiles .
