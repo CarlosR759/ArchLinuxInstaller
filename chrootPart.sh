@@ -166,14 +166,15 @@ then
 fi
 
 ### Installing Hyprland window manager
-read -r -p "Do you want to install DWM for window manager support ? write yes or no: " hyprAnswer
+read -r -p "Do you want to install Hyprland window manager ? write yes or no: " hyprAnswer
 echo
-if [[ "$hyprAnwser" = 'yes'  && "$User" != '0' ]]
+
+if [[ "$hyprAnswer" = 'yes'  && "$User" != '0' ]]
 then
     pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset
     mkdir -p /home/"$User"/.config/hypr/
     cd /home/"$User"/.config/hypr/ && git clone https://github.com/CarlosR759/HyprConfs
-elif [[ "$answer" = 'yes' && "$User" == '0' ]]
+elif [[ "$hyprAnswer" = 'yes' && "$User" == '0' ]]
 then
     pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset
     mkdir -p /home/root/.config/hypr/
