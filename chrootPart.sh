@@ -197,6 +197,39 @@ then
     wget -O /home/root/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
 fi
 
+#Desktops installation section
+read -r -p "Do you want to install some desktop into your system ? write yes or no: " desktopAnswer
+echo
+
+if [[ "$desktopAnswer" = 'yes' ]]
+then
+    read -r -p "Do you want to install KDE desktop" KdeAnswer
+    echo
+    if [[ "$KdeAnswer" = 'yes' ]]
+    then
+        sudo pacman -S plasma --noconfirm
+    fi
+    read -r -p "Do you want to install Gnome desktop" GnomeAnswer
+    echo
+    if [[ "$GnomeAnswer" = 'yes' ]]
+    then
+        sudo pacman -S gnome --noconfirm
+    fi
+    read -r -p "Do you want to install Xfce desktop" XfceAnswer
+    echo
+    if [[ "$XfceAnswer" = 'yes' ]]
+    then
+        sudo pacman -S xfce4 --noconfirm
+    fi
+    read -r -p "Do you want to install mate desktop" MateAnswer
+    echo
+    if [[ "$MateAnswer" = 'yes' ]]
+    then
+        sudo pacman -S mate --noconfirm
+    fi
+fi
+
+
 systemctl enable ufw
 rm -rf /chrootPart.sh
 exit
