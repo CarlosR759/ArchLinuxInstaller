@@ -207,25 +207,29 @@ then
     echo
     if [[ "$KdeAnswer" = 'yes' ]]
     then
-        sudo pacman -S plasma --noconfirm
+        pacman -S plasma --noconfirm
+        systemctl enable sddm.service
     fi
     read -r -p "Do you want to install Gnome desktop ? Write yes or no: " GnomeAnswer
     echo
     if [[ "$GnomeAnswer" = 'yes' ]]
     then
-        sudo pacman -S gnome --noconfirm
+        pacman -S gnome --noconfirm
+        systemctl enable gdm.service
     fi
     read -r -p "Do you want to install Xfce desktop ? Write yes or no: " XfceAnswer
     echo
     if [[ "$XfceAnswer" = 'yes' ]]
     then
-        sudo pacman -S xfce4 --noconfirm
+        pacman -S xfce4 --noconfirm
+        systemctl enable lightdm.service
     fi
     read -r -p "Do you want to install mate desktop ? Write yes or no: " MateAnswer
     echo
     if [[ "$MateAnswer" = 'yes' ]]
     then
-        sudo pacman -S mate --noconfirm
+        pacman -S mate --noconfirm
+        systemctl enable lightdm.service
     fi
 fi
 
