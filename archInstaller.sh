@@ -388,13 +388,6 @@ sed -i 's/\(block\)/\1 encrypt lvm2/' /mnt/etc/mkinitcpio.conf
 
 cp /root/ArchLinuxInstaller/endingSetup.sh /mnt/endingSetup.sh
 
-echo "Checking variables before chrooting: "
-echo "DISK: $DISK"
-echo "BiosOrUefi: $BiosOrUefi"
-sleep 1
-
-#Needs to make if for not running it for non encrypted partitions
-
 if [[ "$encryptFlag" = 'yes' ]]
 then
     arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
