@@ -71,8 +71,13 @@ And enjoy your new Arch machine after rebooting ^^
 > - For keybindings changes made it in config.h in DWM.
 > - For keybindings changes made it in ~/.config/hypr/hyprland.conf for Hyprland.
 
+
 > [!IMPORTANT]
 > - If you launch hyprland by virtual machine, most probably hyprpaper is not going to work, because it needs hardware accelration through gpu in order to work. In should consider to add a pci passthrough of gpu if you can. 
+
+> [!IMPORTANT]
+> - If you need to change the timezone because you don't live where I live, then you need to go first into chrootPart.ch into line 22 and change the path of /usr/share/zoneinfo/ and append the appropiate one for yourself.
+
 
 ## FAQ
 
