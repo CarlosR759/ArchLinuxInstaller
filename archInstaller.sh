@@ -344,24 +344,26 @@ else
     cpu_vendor="virtualMachine"
 fi
 
+
+
 ### INSTALL LIST AND ARCH CHROOT ###
 sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
 
 if [ "$cpu_vendor" = "Intel" ]
 then
-    pacstrap -K /mnt base linux linux-firmware mkinitcpio intel-ucode efibootmgr grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
+    pacstrap -K /mnt base linux linux-firmware mkinitcpio intel-ucode efibootmgr git wget grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 elif [ "$cpu_vendor" = "AMD" ]
 then
-    pacstrap -K /mnt base linux linux-firmware mkinitcpio amd-ucode grub efibootmgr man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
+    pacstrap -K /mnt base linux linux-firmware mkinitcpio amd-ucode grub efibootmgr git wget man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 elif [ "$cpu_vendor" = "virtualMachine" ]
 then
-    pacstrap -K /mnt base linux linux-firmware mkinitcpio grub efibootmgr man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
+    pacstrap -K /mnt base linux linux-firmware mkinitcpio grub efibootmgr git wget man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 fi
 
 
+touch /mnt/etc/vconsole.conf #Dummy vconsole conf file
 genfstab -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
-touch /mnt/etc/vconsole.conf #Dummy vconsole conf file
 arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag"
 
 #Setting up lusk partition for booting up
