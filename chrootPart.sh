@@ -235,6 +235,8 @@ then
 fi
 
 
-systemctl enable ufw
+systemctl enable ufw --now
+ufw default deny incoming
+ufw default allow outgoing
 rm -rf /chrootPart.sh
 exit
