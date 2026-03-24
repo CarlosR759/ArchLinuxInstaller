@@ -203,25 +203,25 @@ echo
 
 if [[ "$desktopAnswer" = 'yes' ]]
 then
-    read -r -p "Do you want to install KDE desktop" KdeAnswer
+    read -r -p "Do you want to install KDE desktop ? Write yes or no: " KdeAnswer
     echo
     if [[ "$KdeAnswer" = 'yes' ]]
     then
         sudo pacman -S plasma --noconfirm
     fi
-    read -r -p "Do you want to install Gnome desktop" GnomeAnswer
+    read -r -p "Do you want to install Gnome desktop ? Write yes or no: " GnomeAnswer
     echo
     if [[ "$GnomeAnswer" = 'yes' ]]
     then
         sudo pacman -S gnome --noconfirm
     fi
-    read -r -p "Do you want to install Xfce desktop" XfceAnswer
+    read -r -p "Do you want to install Xfce desktop ? Write yes or no: " XfceAnswer
     echo
     if [[ "$XfceAnswer" = 'yes' ]]
     then
         sudo pacman -S xfce4 --noconfirm
     fi
-    read -r -p "Do you want to install mate desktop" MateAnswer
+    read -r -p "Do you want to install mate desktop ? Write yes or no: " MateAnswer
     echo
     if [[ "$MateAnswer" = 'yes' ]]
     then
