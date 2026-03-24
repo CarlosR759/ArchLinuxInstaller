@@ -174,13 +174,13 @@ then
     pacman -S git hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset rofi lf calcurse fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/"$User"/.config/hypr/
     cd /home/"$User"/.config/hypr/
-    git clone https://github.com/CarlosR759/HyprConfs
+    git clone https://github.com/CarlosR759/HyprConfs .
 elif [[ "$hyprAnswer" = 'yes' && "$User" == '0' ]]
 then
     pacman -S git hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset rofi lf calcurse fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/root/.config/hypr/
     cd /home/root/.config/hypr/
-    git clone https://github.com/CarlosR759/HyprConfs
+    git clone https://github.com/CarlosR759/HyprConfs .
 fi
 
 systemctl enable ufw

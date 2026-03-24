@@ -368,9 +368,6 @@ arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag"
 partitionLuskID=$(blkid | awk -F'"' 'NR == 3 { print $2 }') #Same as before
 partitionHardwareID=$(blkid | awk -F'"' 'NR == 4 { print $2 }') #These lines assumes that always the second drive is encrypted
 
-echo "Checking partition variables: "
-echo "$partitionHardwareID"
-echo "$partitionLuskID"
 
 #sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionLuskID:cryptlvm root=UUID=$partitionHardwareID/" /mnt/etc/default/grub
 #sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionLuskID:cryptlvm root=UUID=$partitionHardwareID/" /mnt/etc/default/grub
@@ -378,12 +375,14 @@ sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\"$/ cryptdevice=UUID=$partitionHardwar
 #sed -i "/^HOOKS=/ s/\(([^)]*)\)/(\1 encrypt lvm2)/" /mnt/etc/mkinitcpio.conf Delete this in the future.
 #sed -i "/^HOOKS=/ s/\([^)]*\)/\1 encrypt lvm2/" /mnt/etc/mkinitcpio.conf
 
-#Making a busybox approach instead of systemd
+#Making a busybox approach instead of systemd for mount encrypted root partition
+if [[ "$encryptFlag" = 'yes' ]]
+then
 sed -i '/^HOOKS=/ s/\bsystemd\b//' /mnt/etc/mkinitcpio.conf
 sed -i 's/\(base\)/\1 udev/' /mnt/etc/mkinitcpio.conf
 sed -i '/^HOOKS=/ s/\bsd-vconsole\b/consolefont/' /mnt/etc/mkinitcpio.conf
 sed -i 's/\(block\)/\1 encrypt lvm2/' /mnt/etc/mkinitcpio.conf
-
+fi
 
 
 cp /root/ArchLinuxInstaller/endingSetup.sh /mnt/endingSetup.sh
