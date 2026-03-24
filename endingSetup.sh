@@ -12,8 +12,6 @@ BiosOrUefi="$2"
 
 pacman -S cryptsetup --noconfirm
 
-#Dummy vconsole conf
-touch /etc/vconsole.conf
 
 mkinitcpio -P
 

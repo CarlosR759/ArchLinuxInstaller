@@ -402,24 +402,35 @@ echo "#####################################################"
 echo " "
 echo " "
 echo "You arch linux installation is completed, just write reboot to reboot the system and start using it!"
-echo "by the way, you have alacritty and kitty by default terminals"
-echo "please use visudo to uncomment the wheel group if you want your user to have sudo privilege"
+echo "by the way, you have alacritty and kitty by default terminals."
 
 if [ "$encryptFlag" == "yes" ]
 then
     mount /dev/mapper/rootDrive /mnt
     mount /dev/vda1 /mnt/boot
-    echo "PLEASE READ THIS!!!"
-    echo "You have installed the encrypt root partition. But you don't have grub, you will need to install it with the propper UUID to boot properly."
-    echo "To do that make this:"
-    echo "1) check if your drives are mounted with lsblk"
-    echo "2) blkid >> /etc/default/grub"
-    echo "3) Chroot with arch-chroot /mnt"
-    echo "4) Select  the UUID of the for crypto_LUKS in the bottom of /etc/default/grub and decrypted drive UUID"
-    echo "5) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=UUID=<UUIDofDecryptedPartition>"
-    echo "6) In /etc/mkinitcpio.conf add in the HOOKS line: encrypt lvm2"
-    echo "7) run mkinitcpio -P "
-    echo "8) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install ""$DISK"" "
-    echo "9) finally grub-mkconfig -o /boot/grub/grub.cfg"
-    echo "Then exit and reboot"
+    echo " "
+    echo " "
+    echo "You encripted the root device, by default this script should make it work out of the box, but if that's not the case, the whole manual process is described in the last part of archInstaller.sh as comments."
+    echo "If you want to manually do a fix, over there you will find the documentation."
+    echo "But in practice this script should work out of the box, most if you only have one storage drive."
+    echo "For more than two devices, if you want you can check it if everything is in order, for that the partitions had been mounted already to check that."
+    echo "If you don't want to do that you can just umount the partitions and reboot, or just reboot."
+    echo "Enjoy your setup btw ^^"
 fi
+
+
+#### Information for encripted devices ####
+#### If by some reason somethin is not working, the following is the whole manual process to make an encrypted drive boots:
+
+#### "You have installed the encrypt root partition. But you don't have grub necesary files or healthy initramfs, you will need to do the following:
+#### "To do that make this:"
+#### "1) check if your drives are mounted with lsblk"
+#### "2) blkid >> /etc/default/grub"
+#### "3) Chroot with arch-chroot /mnt"
+#### "4) Select  the UUID of the for crypto_LUKS in the bottom of /etc/default/grub and decrypted drive UUID"
+#### "5) In GRUB_CMDLINE_LINUX_DEFAULT add cryptdevice=UUID=<yourUUID>:cryptlvm root=UUID=<UUIDofDecryptedPartition>"
+#### "6) In /etc/mkinitcpio.conf add in the HOOKS line: encrypt lvm2"
+#### "7) run mkinitcpio -P "
+#### "8) Install grub like grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB  or for bios systems: grub-install ""$DISK"" "
+#### "9) finally grub-mkconfig -o /boot/grub/grub.cfg"
+#### "Then exit and reboot"
