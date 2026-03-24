@@ -94,7 +94,6 @@ And enjoy your new Arch machine after rebooting ^^
 <details mardown="1">
   <content>
       Yes, I only need a description to make the bug reproducible if you found something. Just send the problem into issues and with an explanation on how to make it reproducible the error. For that you must try more than once the installation, so I can be sure that it wasn't an ISO enviroment initialization error, which sometimes can happend. So always try it twice, to confirm that is a reproducible bug and not also and ISO init issue.
-      
       You can also try to make a pull request if you want, but please do not add new software to the Arch Installation, this script tries to be minimal as possible, so it can ends in a point from which the users can choose how to continue modifying their machines.
   </content>
 </details>
