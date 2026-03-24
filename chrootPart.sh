@@ -175,24 +175,24 @@ then
     mkdir -p /home/"$User"/.config/hypr/
     cd /home/"$User"/.config/hypr/
     git clone https://github.com/CarlosR759/HyprConfs .
-    cd /home/"$User"
+    cd /home/"$User"/
     git clone https://github.com/CarlosR759/wallpapers
     cd /home/"$User"/.config/
     git clone https://github.com/CarlosR759/mydotfiles .
-    cd /home/"$User"
-    wget -O ~/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
+    cd /home/"$User"/
+    wget -O /home/"$User"/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
 elif [[ "$hyprAnswer" = 'yes' && "$User" == '0' ]]
 then
     pacman -S git wget hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/root/.config/hypr/
     cd /home/root/.config/hypr/
     git clone https://github.com/CarlosR759/HyprConfs .
-    cd  /home/root
+    cd  /home/root/
     git clone https://github.com/CarlosR759/wallpapers
-    cd /home/"$User"/.config
+    cd /home/"$User"/.config/
     git clone https://github.com/CarlosR759/mydotfiles .
-    cd /home/"$User"
-    wget -O ~/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
+    cd /home/"$User"/
+    wget -O /home/root/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
 fi
 
 systemctl enable ufw
