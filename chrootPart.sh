@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 DISK="$1"
 encryptFlag="$2"
@@ -50,13 +50,13 @@ echo "$Password" | passwd --stdin
 read -r -p "Do you want to create another user besides root ? write yes or no: " answer
 echo
 
-if [ "$answer" =~ ^[Yy][Ee][Ss]$ ]
+if [[ "$answer" =~ ^[Yy][Ee][Ss]$ ]]
 then
     read -r -p "Please write your new user username: " User
     echo
     read -r -p "do you want to have your new user in wheel group to have sudo ussage? write yes or no: " wheel
     echo
-    if [ "$wheel" =~ ^[Yy][Ee][Ss]$ ]
+    if [[ "$wheel" =~ ^[Yy][Ee][Ss]$ ]]
     then
         useradd -m "$User"
         usermod -aG wheel "$User"
@@ -72,7 +72,7 @@ else
 fi
 
 #initcpio only for unencrypted devices. It avoids making it twice in the opposite case
-if [ "$encryptFlag" =~ ^[Nn][Oo]$ ]
+if [[ "$encryptFlag" =~ ^[Nn][Oo]$ ]]
 then
     mkinitcpio -P
 fi
@@ -80,7 +80,7 @@ fi
 # GRUB INSTALLATION AND CONFIGURATION
 BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 
-if [ "$encryptFlag" =~ ^[Nn][Oo]$ ]
+if [[ "$encryptFlag" =~ ^[Nn][Oo]$ ]]
 then
   if [ "$BiosOrUefi" = '64' ]
   then

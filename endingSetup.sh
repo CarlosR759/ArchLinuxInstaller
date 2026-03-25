@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 #This script only get activated when user selected to encrypt device,
 #so this last part is needed to get inside with chroot /mnt again and for
