@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DISK="$1"
 encryptFlag="$2"

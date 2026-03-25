@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #Function to check encryption psswd
 crypt_psswd_check() {
@@ -420,7 +420,7 @@ echo " "
 echo "You arch linux installation is completed, just write reboot to reboot the system and start using it!"
 echo "by the way, you have alacritty and kitty by default terminals."
 
-if [ "$encryptFlag" == "yes" ]
+if [ "$encryptFlag" =~ ^[Yy][Ee][Ss]$ ]
 then
     mount /dev/mapper/rootDrive /mnt
     mount /dev/vda1 /mnt/boot
