@@ -275,7 +275,7 @@ fi
 
 
 ###Checks if drive is sata or mvme to create file systems and mounting.
-if [[ "${encryptFlag,,}" =~ ^(y|yes)$ ]]
+if [[ "${encryptFlag,,}" =~ ^(n|no)$ ]]
 then
   if [[ "$DISK" == /dev/nvme* ]]
   then
