@@ -50,13 +50,13 @@ echo "$Password" | passwd --stdin
 read -r -p "Do you want to create another user besides root ? write yes or no: " answer
 echo
 
-if [[ "$answer" =~ ^[Yy][Ee][Ss]$ ]]
+if [[ "${answer,,}" =~ ^(y|yes)$ ]]
 then
     read -r -p "Please write your new user username: " User
     echo
     read -r -p "do you want to have your new user in wheel group to have sudo ussage? write yes or no: " wheel
     echo
-    if [[ "$wheel" =~ ^[Yy][Ee][Ss]$ ]]
+    if [[ "${wheel,,}" =~ ^(y|yes)$ ]]
     then
         useradd -m "$User"
         usermod -aG wheel "$User"
@@ -72,7 +72,7 @@ else
 fi
 
 #initcpio only for unencrypted devices. It avoids making it twice in the opposite case
-if [[ "$encryptFlag" =~ ^[Nn][Oo]$ ]]
+if [[ "${encryptFlag,,}" =~ ^(n|no)$ ]]
 then
     mkinitcpio -P
 fi
@@ -80,7 +80,7 @@ fi
 # GRUB INSTALLATION AND CONFIGURATION
 BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 
-if [[ "$encryptFlag" =~ ^[Nn][Oo]$ ]]
+if [[ "${encryptFlag,,}" =~ ^(n|no)$ ]]
 then
   if [ "$BiosOrUefi" = '64' ]
   then
@@ -103,7 +103,7 @@ locale-gen
 read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer
 echo
 
-if [[ "$answer" =~ ^[Yy][Ee][Ss]$  && "$User" = '0' ]]
+if [[ "${answer,,}" =~ ^(y|yes)$  && "$User" = '0' ]]
 then
     pacman -S rofi lf xorg xorg-xinit base base-devel ntp feh picom calcurse task fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd xdg-desktop-portal xdg-desktop-portal-gtk --noconfirm
     cd
@@ -134,7 +134,7 @@ then
     echo "picom -b &" >> /home/root/.xinitrc
     echo "dwmblocks &" >> /home/root/.xinitrc
     echo "dwm 2> ~/.dwm.log" >> /home/root/.xinitrc
-elif [[ "$answer" =~ ^[Yy][Ee][Ss]$ && "$User" != '0' ]]
+elif [[ "${answer,,}" =~ ^(y|yes)$ && "$User" != '0' ]]
 then
     pacman -S rofi lf xorg xorg-xinit base base-devel ntp feh picom calcurse task fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd /home/"$User"
@@ -171,7 +171,7 @@ fi
 read -r -p "Do you want to install Hyprland window manager ? write yes or no: " hyprAnswer
 echo
 
-if [[ "$hyprAnswer" =~ ^[Yy][Ee][Ss]$ && "$User" != '0' ]]
+if [[ "${hyprAnswer,,}" =~ ^(y|yes)$ && "$User" != '0' ]]
 then
     pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset mesa libglvnd rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/"$User"/.config/
@@ -184,7 +184,7 @@ then
     git clone https://github.com/CarlosR759/wallpapers
     cd /home/"$User"/
     wget -O /home/"$User"/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
-elif [[ "$hyprAnswer" =~ ^[Yy][Ee][Ss]$ && "$User" == '0' ]]
+elif [[ "${hyprAnswer,,}" =~ ^(y|yes)$ && "$User" == '0' ]]
 then
     pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset mesa libglvnd rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/root/.config/
@@ -203,39 +203,39 @@ fi
 read -r -p "Do you want to install some desktop into your system ? write yes or no: " desktopAnswer
 echo
 
-if [[ "$desktopAnswer" =~ ^[Yy][Ee][Ss]$ ]]
+if [[ "${desktopAnswer,,}" =~ ^(y|yes)$ ]]
 then
     read -r -p "Do you want to install KDE desktop ? Write yes or no: " KdeAnswer
     echo
-    if [[ "$KdeAnswer" =~ ^[Yy][Ee][Ss]$ ]]
+    if [[ "${KdeAnswer,,}" =~ ^(y|yes)$ ]]
     then
         pacman -S plasma --noconfirm
         systemctl enable sddm.service
     fi
     read -r -p "Do you want to install Gnome desktop ? Write yes or no: " GnomeAnswer
     echo
-    if [[ "$GnomeAnswer" =~ ^[Yy][Ee][Ss]$ ]]
+    if [[ "${GnomeAnswer,,}" =~ ^(y|yes)$ ]]
     then
         pacman -S gnome --noconfirm
         systemctl enable gdm.service
     fi
     read -r -p "Do you want to install Cosmic desktop ? Write yes or no: " CosmicAnswer
     echo
-    if [[ "$CosmicAnswer" =~ ^[Yy][Ee][Ss]$ ]]
+    if [[ "${CosmicAnswer,,}" =~ ^(y|yes)$ ]]
     then
         pacman -S cosmic --noconfirm
         systemctl enable cosmic-greeter.service
     fi
     read -r -p "Do you want to install Xfce desktop ? Write yes or no: " XfceAnswer
     echo
-    if [[ "$XfceAnswer" =~ ^[Yy][Ee][Ss]$ ]]
+    if [[ "${XfceAnswer,,}" =~ ^(y|yes)$ ]]
     then
         pacman -S xfce4 --noconfirm
         systemctl enable lightdm.service
     fi
     read -r -p "Do you want to install mate desktop ? Write yes or no: " MateAnswer
     echo
-    if [[ "$MateAnswer" =~ ^[Yy][Ee][Ss]$ ]]
+    if [[ "${MateAnswer,,}" =~ ^(y|yes)$ ]]
     then
         pacman -S mate --noconfirm
         systemctl enable lightdm.service
