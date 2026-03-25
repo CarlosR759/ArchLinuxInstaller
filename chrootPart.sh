@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 DISK="$1"
 encryptFlag="$2"

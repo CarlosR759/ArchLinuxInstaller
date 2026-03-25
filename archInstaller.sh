@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 #Function to check encryption psswd
 crypt_psswd_check() {
@@ -58,7 +58,7 @@ echo
 echo "Creating partitions on $DISK..."
 
 ### This if make the partitions for bios or uefi depending the case.
-if [[ "$encryptFlag" =~ ^[Nn][Oo]$ ]]
+if [[ "${encryptFlag,,}" =~ ^(n|no)$ ]]
 then
   if [ "$BiosOrUefi" = '64' ]
   then
@@ -113,7 +113,7 @@ EOF
     echo "something went wrong when creating partitions. Please cancel the script with ctrl + c"
     sleep 3600
   fi
-elif [[ "$encryptFlag" =~ ^[Yy][Ee][Ss]$ ]]
+elif [[ "${encryptFlag,,}" =~ ^(y|yes)$ ]]
 then
   if [ "$BiosOrUefi" = '64' ]
   then
@@ -275,7 +275,7 @@ fi
 
 
 ###Checks if drive is sata or mvme to create file systems and mounting.
-if [[ "$encryptFlag" =~ ^[Nn][Oo]$ ]]
+if [[ "${encryptFlag,,}" =~ ^(y|yes)$ ]]
 then
   if [[ "$DISK" == /dev/nvme* ]]
   then
@@ -311,7 +311,7 @@ then
     mkdir -p /mnt/boot
     mount "${DISK}"1 /mnt/boot
   fi
-  elif [[ "$encryptFlag" =~ ^[Yy][Ee][Ss]$ ]]
+  elif [[ "${encryptFlag,,}" =~ ^(y|yes)$ ]]
 then
     if [[ "$DISK" == /dev/nvme* ]]
     then
@@ -394,7 +394,7 @@ sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\"$/ cryptdevice=UUID=$partitionHardwar
 #sed -i "/^HOOKS=/ s/\([^)]*\)/\1 encrypt lvm2/" /mnt/etc/mkinitcpio.conf
 
 #Making a busybox approach instead of systemd for mount encrypted root partition
-if [[ "$encryptFlag" =~ ^[Yy][Ee][Ss]$ ]]
+if [[ "${encryptFlag,,}" =~ ^(y|yes)$ ]]
 then
     sed -i '/^HOOKS=/ s/\bsystemd\b//' /mnt/etc/mkinitcpio.conf
     sed -i 's/\(base\)/\1 udev/' /mnt/etc/mkinitcpio.conf
@@ -405,7 +405,7 @@ fi
 
 cp /root/ArchLinuxInstaller/endingSetup.sh /mnt/endingSetup.sh
 
-if [[ "$encryptFlag" =~ ^[Yy][Ee][Ss]$ ]]
+if [[ "${encryptFlag,,}" =~ ^(y|yes)$ ]]
 then
     arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
 fi
@@ -420,7 +420,7 @@ echo " "
 echo "You arch linux installation is completed, just write reboot to reboot the system and start using it!"
 echo "by the way, you have alacritty and kitty by default terminals."
 
-if [[ "$encryptFlag" =~ ^[Yy][Ee][Ss]$ ]]
+if [[ "${encryptFlag,,}" =~ ^(y|yes)$ ]]
 then
     mount /dev/mapper/rootDrive /mnt
     mount /dev/vda1 /mnt/boot
