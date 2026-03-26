@@ -126,6 +126,13 @@ and run the main script:
 ```
 
 And enjoy your new Arch machine after rebooting ^^
+BUT! : 
+
+```sh
+sudo ufw enable
+```
+
+Enable Firewall because during chroot in script installation, it's impossible to initialize it because iptables modules can't be loaded :)
 
 
 > [!TIP]
@@ -137,6 +144,7 @@ And enjoy your new Arch machine after rebooting ^^
 
 > [!IMPORTANT]
 > - If you launch hyprland by virtual machine, most probably hyprpaper is not going to work, because it needs hardware accelration through gpu in order to work. In should consider to add a pci passthrough of gpu if you can. 
+> - Also Hyprland running as root is not recomended, you can install it as a root in this script, but if you don't want to create an user while running the script, then afterwards please do it.
 
 > [!IMPORTANT]
 > - If you need to change the timezone because you don't live where I live, then you need to go first into chrootPart.ch into line 22 and change the path of /usr/share/zoneinfo/ and append the appropiate one for yourself.
