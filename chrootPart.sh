@@ -215,6 +215,7 @@ then
     git clone https://github.com/CarlosR759/PotPlantCozzySysBar .
 elif [[ "${hyprAnswer,,}" =~ ^(y|yes)$ && "$User" == '0' ]]
 then
+    #If you are installing this as root, please create an user okey ? Hyprland doesn't recomend launch it as root at all.
     pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset base base-devel mesa libglvnd rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/root/.config/
     cd /home/root/.config/
@@ -312,6 +313,5 @@ fi
 systemctl enable ufw
 ufw default deny incoming
 ufw default allow outgoing
-ufw enable
 rm -rf /chrootPart.sh
 exit
