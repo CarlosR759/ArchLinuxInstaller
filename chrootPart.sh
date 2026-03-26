@@ -2,8 +2,13 @@
 
 DISK="$1"
 encryptFlag="$2"
+WMAnswer="$3"
+DesktopAnswer="$4"
+AllDesktopsAnswer="$5"
+OneDesktopAnswer="$6"
 Password='0'
 answer='no'
+oneDeskFlag='0' #Flag to trigger not asking to install more desktops if user decided to install just one.
 
 psswd_check() {
     while true; do
@@ -100,8 +105,6 @@ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "en_US ISO-8859-1" >> /etc/locale.gen
 locale-gen
 
-read -r -p "Do you want to install any window manager ? write yes or no: "  WMAnswer
-echo
 
 if [[ "${WMAnswer,,}" =~ ^(y|yes)$ ]]
 then
@@ -129,11 +132,11 @@ then
     cd ~/.config
     git clone https://github.com/CarlosR759/mydotfiles .
     cp /etc/X11/xinit/xinitrc ~/.xinitrc
-    sed -i 's/^$twm &//' /home/root/.xinitrc
-    sed -i 's/^$xclock -geometry 50x50-1+1 &//' /home/root/.xinitrc
-    sed -i 's/^$xterm -geometry 80x50+494+51 &//' /home/root/.xinitrc
-    sed -i 's/^$xterm -geometry 80x20+494-0 &//' /home/root/.xinitrc
-    sed -i 's/^exec $xterm -geometry 80x66+0+0 -name login//' /home/root/.xinitrc
+    sed -i 's/^"$twm" &//' /home/root/.xinitrc
+    sed -i 's/^"$xclock" -geometry 50x50-1+1 &//' /home/root/.xinitrc
+    sed -i 's/^"$xterm" -geometry 80x50+494+51 &//' /home/root/.xinitrc
+    sed -i 's/^"$xterm" -geometry 80x20+494-0 &//' /home/root/.xinitrc
+    sed -i 's/^exec "$xterm" -geometry 80x66+0+0 -name login//' /home/root/.xinitrc
     cd
     wget -O ~/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
     git clone https://github.com/CarlosR759/wallpapers
@@ -205,7 +208,7 @@ then
     cp ./eww /usr/local/bin/
     mkdir  /home/"$User"/.config/eww/
     cd /home/"$User"/.config/eww/
-    git clone https://github.com/CarlosR759/PotPlantCozzySysBar
+    git clone https://github.com/CarlosR759/PotPlantCozzySysBar .
 elif [[ "${hyprAnswer,,}" =~ ^(y|yes)$ && "$User" == '0' ]]
 then
     pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset mesa libglvnd rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
@@ -230,13 +233,10 @@ then
     cp ./eww /usr/local/bin/
     mkdir  /home/"$User"/.config/eww/
     cd /home/"$User"/.config/eww/
-    git clone https://github.com/CarlosR759/PotPlantCozzySysBar
+    git clone https://github.com/CarlosR759/PotPlantCozzySysBar .
 fi
 
 #Desktops installation section
-read -r -p "Do you want to install some desktop into your system ? write yes or no: " desktopAnswer
-echo
-
 if [[ "${desktopAnswer,,}" =~ ^(y|yes)$ ]]
 then
     read -r -p "Do you want to install KDE desktop ? Write yes or no: " KdeAnswer
@@ -245,31 +245,59 @@ then
     then
         pacman -S plasma --noconfirm
         systemctl enable sddm.service
+        if [[ "${OneDesktopAnswer,,}" =~ ^(y|yes)$ ]]
+        then
+            oneDeskFlag='1'
+        fi
     fi
-    read -r -p "Do you want to install Gnome desktop ? Write yes or no: " GnomeAnswer
-    echo
-    if [[ "${GnomeAnswer,,}" =~ ^(y|yes)$ ]]
+    if [[ "$oneDeskFlag" == '0' ]]
+    then
+        read -r -p "Do you want to install Gnome desktop ? Write yes or no: " GnomeAnswer
+        echo
+    fi
+    if [[ "${GnomeAnswer,,}" =~ ^(y|yes)$ && "$oneDeskFlag" == '0' ]]
     then
         pacman -S gnome --noconfirm
         systemctl enable gdm.service
+        if [[ "${OneDesktopAnswer,,}" =~ ^(y|yes)$ ]]
+        then
+            oneDeskFlag='1'
+        fi
     fi
-    read -r -p "Do you want to install Cosmic desktop ? Write yes or no: " CosmicAnswer
-    echo
-    if [[ "${CosmicAnswer,,}" =~ ^(y|yes)$ ]]
+    if [[ "$oneDeskFlag" == '0' ]]
+    then
+        read -r -p "Do you want to install Cosmic desktop ? Write yes or no: " CosmicAnswer
+        echo
+    fi
+    if [[ "${CosmicAnswer,,}" =~ ^(y|yes)$ && "$oneDeskFlag" == '0' ]]
     then
         pacman -S cosmic --noconfirm
         systemctl enable cosmic-greeter.service
+        if [[ "${OneDesktopAnswer,,}" =~ ^(y|yes)$ ]]
+        then
+            oneDeskFlag='1'
+        fi
     fi
-    read -r -p "Do you want to install Xfce desktop ? Write yes or no: " XfceAnswer
-    echo
-    if [[ "${XfceAnswer,,}" =~ ^(y|yes)$ ]]
+    if [[ "$oneDeskFlag" == '0' ]]
+    then
+        read -r -p "Do you want to install Xfce desktop ? Write yes or no: " XfceAnswer
+        echo
+    fi
+    if [[ "${XfceAnswer,,}" =~ ^(y|yes)$ && "$oneDeskFlag" == '0' ]]
     then
         pacman -S xfce4 --noconfirm
         systemctl enable lightdm.service
+        if [[ "${OneDesktopAnswer,,}" =~ ^(y|yes)$ ]]
+        then
+            oneDeskFlag='1'
+        fi
     fi
-    read -r -p "Do you want to install mate desktop ? Write yes or no: " MateAnswer
-    echo
-    if [[ "${MateAnswer,,}" =~ ^(y|yes)$ ]]
+    if [[ "$oneDeskFlag" == '0' ]]
+    then
+        read -r -p "Do you want to install mate desktop ? Write yes or no: " MateAnswer
+        echo
+    fi
+    if [[ "${MateAnswer,,}" =~ ^(y|yes)$ && "$oneDeskFlag" == '0' ]]
     then
         pacman -S mate --noconfirm
         systemctl enable lightdm.service

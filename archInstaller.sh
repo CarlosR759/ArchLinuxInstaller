@@ -25,6 +25,32 @@ echo "#####################################################"
 echo " "
 echo " "
 
+
+####Questions for making the installation more faster for users that want to go outside and make a coffee in between.
+read -r -p "Do you want to install any window manager ? write yes or no: "  WMAnswer
+echo
+
+read -r -p "Do you want to install any Desktops ? write yes or no: "  DesktopsAnswer
+echo
+
+
+if [[ "${DesktopsAnswer,,}" =~ ^(y|yes)$ ]]
+then
+    read -r -p "Do you want to add many desktops ? write yes or no: " ManyDesktopsAnswer
+    echo
+    if [[ "${ManyDeskAnswer,,}" =~ ^(y|yes)$ ]]
+    then
+        read -r -p "Do you want to install all Desktops available in the script ? write yes or no: " AllDesktopsAnswer
+        echo
+    fi
+    if [[ "${ManyDeskAnswer,,}" =~ ^(n|no)$ ]]
+    then
+        read -r -p "Do you want to install just one desktop ? write yes or no: " OneDesktopAnswer
+        echo
+    fi
+fi
+
+
 #####This line of code is to see if is bios or uefi. Bios==32 & Uefi==64
 BiosOrUefi=$(cat /sys/firmware/efi/fw_platform_size)
 
@@ -361,7 +387,6 @@ else
 fi
 
 
-
 ### INSTALL LIST AND ARCH CHROOT ###
 sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
 
@@ -407,7 +432,7 @@ cp /root/ArchLinuxInstaller/endingSetup.sh /mnt/endingSetup.sh
 
 if [[ "${encryptFlag,,}" =~ ^(y|yes)$ ]]
 then
-    arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
+    arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"  "$WMAnswer" "$DesktopsAnswer" "$AllDesktopsAnswer" "$OneDesktopAnswer"
 fi
 
 umount -R /mnt
