@@ -190,7 +190,7 @@ fi
 
 if [[ "${hyprAnswer,,}" =~ ^(y|yes)$ && "$User" != '0' ]]
 then
-    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset mesa libglvnd rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
+    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset base base-devel mesa libglvnd rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/"$User"/.config/
     cd /home/"$User"/.config/
     git clone https://github.com/CarlosR759/mydotfiles .
@@ -215,7 +215,7 @@ then
     git clone https://github.com/CarlosR759/PotPlantCozzySysBar .
 elif [[ "${hyprAnswer,,}" =~ ^(y|yes)$ && "$User" == '0' ]]
 then
-    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset mesa libglvnd rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
+    pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset base base-devel mesa libglvnd rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     mkdir -p /home/root/.config/
     cd /home/root/.config/
     git clone https://github.com/CarlosR759/mydotfiles .
