@@ -109,11 +109,13 @@ locale-gen
 if [[ "${WMAnswer,,}" =~ ^(y|yes)$ ]]
 then
     ### Installing dwm window manager
-    read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer
+    read -r -p "Do you want to install DWM for window manager support ? write yes or no: " DwmAnswer
     echo
+else
+    DwmAnswer='no'
 fi
 
-if [[ "${answer,,}" =~ ^(y|yes)$  && "$User" = '0' ]]
+if [[ "${DwmAnswer,,}" =~ ^(y|yes)$  && "$User" = '0' ]]
 then
     pacman -S rofi lf xorg xorg-xinit base base-devel ntp feh picom calcurse task fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd xdg-desktop-portal xdg-desktop-portal-gtk --noconfirm
     cd
@@ -144,7 +146,7 @@ then
     echo "picom -b &" >> /home/root/.xinitrc
     echo "dwmblocks &" >> /home/root/.xinitrc
     echo "dwm 2> ~/.dwm.log" >> /home/root/.xinitrc
-elif [[ "${answer,,}" =~ ^(y|yes)$ && "$User" != '0' ]]
+elif [[ "${DwmAnswer,,}" =~ ^(y|yes)$ && "$User" != '0' ]]
 then
     pacman -S rofi lf xorg xorg-xinit base base-devel ntp feh picom calcurse task fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
     cd /home/"$User"
@@ -182,6 +184,8 @@ then
     ### Installing Hyprland window manager
     read -r -p "Do you want to install Hyprland window manager ? write yes or no: " hyprAnswer
     echo
+else
+    hyprAnswer='no'
 fi
 
 if [[ "${hyprAnswer,,}" =~ ^(y|yes)$ && "$User" != '0' ]]
