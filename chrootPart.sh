@@ -3,6 +3,7 @@
 DISK="$1"
 encryptFlag="$2"
 Password='0'
+answer='no'
 
 psswd_check() {
     while true; do
@@ -99,9 +100,15 @@ echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 echo "en_US ISO-8859-1" >> /etc/locale.gen
 locale-gen
 
-### Installing dwm window manager
-read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer
+read -r -p "Do you want to install any window manager ? write yes or no: "  WMAnswer
 echo
+
+if [[ "${WMAnswer,,}" =~ ^(y|yes)$ ]]
+then
+    ### Installing dwm window manager
+    read -r -p "Do you want to install DWM for window manager support ? write yes or no: " answer
+    echo
+fi
 
 if [[ "${answer,,}" =~ ^(y|yes)$  && "$User" = '0' ]]
 then
@@ -167,9 +174,12 @@ then
     echo "dwm 2> ~/.dwm.log" >> /home/"$User"/.xinitrc
 fi
 
-### Installing Hyprland window manager
-read -r -p "Do you want to install Hyprland window manager ? write yes or no: " hyprAnswer
-echo
+if [[ "${WMAnswer,,}" =~ ^(y|yes)$ ]]
+then
+    ### Installing Hyprland window manager
+    read -r -p "Do you want to install Hyprland window manager ? write yes or no: " hyprAnswer
+    echo
+fi
 
 if [[ "${hyprAnswer,,}" =~ ^(y|yes)$ && "$User" != '0' ]]
 then
@@ -184,6 +194,18 @@ then
     git clone https://github.com/CarlosR759/wallpapers
     cd /home/"$User"/
     wget -O /home/"$User"/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
+
+    #Installing my eww bar
+    pacman -S rust --noconfirm
+    git clone https://github.com/elkowar/eww
+    cd eww
+    cargo build --release --no-default-features --features=wayland
+    cd target/release
+    chmod +x ./eww
+    cp ./eww /usr/local/bin/
+    mkdir  /home/"$User"/.config/eww/
+    cd /home/"$User"/.config/eww/
+    git clone https://github.com/CarlosR759/PotPlantCozzySysBar
 elif [[ "${hyprAnswer,,}" =~ ^(y|yes)$ && "$User" == '0' ]]
 then
     pacman -S hyprland hyprpaper hyprpicker hyprlock xdg-desktop-portal-hyprland hyprpolkitagent hyprsunset mesa libglvnd rofi lf calcurse flameshot fzf nerd-fonts gnu-free-fonts ttf-font-awesome noto-fonts-emoji ttf-iosevka-nerd --noconfirm
@@ -197,6 +219,18 @@ then
     git clone https://github.com/CarlosR759/wallpapers
     cd /home/"$User"/
     wget -O /home/root/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
+
+    #Installing my eww bar
+    pacman -S rust --noconfirm
+    git clone https://github.com/elkowar/eww
+    cd eww
+    cargo build --release --no-default-features --features=wayland
+    cd target/release
+    chmod +x ./eww
+    cp ./eww /usr/local/bin/
+    mkdir  /home/"$User"/.config/eww/
+    cd /home/"$User"/.config/eww/
+    git clone https://github.com/CarlosR759/PotPlantCozzySysBar
 fi
 
 #Desktops installation section
