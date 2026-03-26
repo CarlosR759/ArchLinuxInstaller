@@ -15,6 +15,7 @@
 ## Prerequisites
 
 Arch linux iso running in your computer and a clean drive to work with it. That's all
+
 Also please read all this readme file first before doing something ^^ ! 
 
 ## Features
