@@ -405,7 +405,7 @@ fi
 touch /mnt/etc/vconsole.conf #Dummy vconsole conf file
 genfstab -U /mnt >> /mnt/etc/fstab
 cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
-arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag"
+arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag" "$WMAnswer" "$DesktopsAnswer" "$AllDesktopsAnswer" "$OneDesktopAnswer"
 
 #Setting up lusk partition for booting up
 partitionLuskID=$(blkid | awk -F'"' 'NR == 3 { print $2 }') #Same as before
@@ -432,7 +432,7 @@ cp /root/ArchLinuxInstaller/endingSetup.sh /mnt/endingSetup.sh
 
 if [[ "${encryptFlag,,}" =~ ^(y|yes)$ ]]
 then
-    arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"  "$WMAnswer" "$DesktopsAnswer" "$AllDesktopsAnswer" "$OneDesktopAnswer"
+    arch-chroot /mnt /endingSetup.sh "$DISK" "$BiosOrUefi"
 fi
 
 umount -R /mnt
