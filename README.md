@@ -67,7 +67,7 @@ fdisk /dev/yourDriveYouWantToDelete
 and press d and delete the partitions, then after deleting probably the both partitions, press w to write and quit.
 
 > [!IMPORTANT]
-> - Deleting with the fdisk methods works for all devices, is probably the most easy way to go no matter if you are using SSD SATA, SSD NVME or HDD. Because in practice you are just destroying the partitions inside the drive. The other methods assure that complete deletion of all remaning data occours, fdisk one doesn't. So in tldr: Just pick your poison and carry on.
+> - Deleting with the fdisk methods works for all devices, is probably the most easy way to go no matter if you are using SSD SATA, SSD NVME or HDD. Because in practice you are just erasing the partitions inside the drive. The other methods assure that complete deletion of all remaning data occours, fdisk one doesn't. So in tldr: Just pick your poison and carry on.
 
 
 For HDD you can use the fdisk approach but if you want to delete everything you just can go with: 
@@ -94,6 +94,9 @@ To see if there are deleted.
 
 > [!NOTE]
 > - If by some reason you still see that after lsblk the partition still exists, you could just reboot the system and check again if those exists. Some times it does happens that the iso booting doesn't catch the info, more if you don't do the sync command, but in practice you can just go and launch the script without rebooting the system. But if you want to be sure 100% and want to avoid any bugs, just reboot.
+
+> [!NOTE]
+> - In SSD trim the device is not equal to deleting the partitions or data. Trim is more like similar to what defragging an HDD is. Defragmentation is not equal to deleting partitions or data. So just going with triming the SSD, will make this script not to work.
 
 ### Using the script
 
