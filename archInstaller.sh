@@ -392,13 +392,13 @@ sed -i 's/^#ParallelDownloads = 5/ParallelDownloads = 5/' /etc/pacman.conf
 
 if [ "$cpu_vendor" = "Intel" ]
 then
-    pacstrap -K /mnt base linux linux-firmware mkinitcpio intel-ucode efibootmgr git wget grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
+    pacstrap -K /mnt base linux linux-firmware mkinitcpio intel-ucode efibootmgr git wget pipewire pipewire-docs pipewire-audio pipewire-alsa alsa-utils grub man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 elif [ "$cpu_vendor" = "AMD" ]
 then
-    pacstrap -K /mnt base linux linux-firmware mkinitcpio amd-ucode grub efibootmgr git wget man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
+    pacstrap -K /mnt base linux linux-firmware mkinitcpio amd-ucode grub efibootmgr git wget pipewire pipewire-docs pipewire-audio pipewire-alsa alsa-utils man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 elif [ "$cpu_vendor" = "virtualMachine" ]
 then
-    pacstrap -K /mnt base linux linux-firmware mkinitcpio grub efibootmgr git wget man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
+    pacstrap -K /mnt base linux linux-firmware mkinitcpio grub efibootmgr git wget pipewire pipewire-docs pipewire-audio pipewire-alsa alsa-utils man-db man-pages texinfo vi vim eza networkmanager ntp bat alacritty kitty sudo fastfetch ufw lvm2
 fi
 
 

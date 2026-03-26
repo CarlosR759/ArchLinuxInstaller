@@ -203,7 +203,7 @@ then
     wget -O /home/"$User"/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
 
     #Installing my eww bar
-    pacman -S rust --noconfirm
+    pacman -S rustup --noconfirm
     git clone https://github.com/elkowar/eww
     cd eww
     cargo build --release --no-default-features --features=wayland
@@ -228,7 +228,7 @@ then
     wget -O /home/root/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
 
     #Installing my eww bar
-    pacman -S rust --noconfirm
+    pacman -S rustup --noconfirm
     git clone https://github.com/elkowar/eww
     cd eww
     cargo build --release --no-default-features --features=wayland
