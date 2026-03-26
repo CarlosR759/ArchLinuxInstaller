@@ -76,6 +76,7 @@ echo "Selecting drive for installation"
 lsblk
 
 echo "You will need to select a drive for your arch linux installation: for example, if you need sda drive put the path like this: /dev/sda"
+echo "If you have more than one drive of the same type of kind and you see like /dev/sda1 and /dev/sda2, please add the number on which one you want to install Arch Linux on the prompt."
 echo
 read -r -p "Please insert your desire drive to make installation: " DISK
 echo
@@ -408,8 +409,8 @@ cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
 arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag" "$WMAnswer" "$DesktopsAnswer" "$AllDesktopsAnswer" "$OneDesktopAnswer"
 
 #Setting up lusk partition for booting up
-partitionLuskID=$(blkid | awk -F'"' 'NR == 3 { print $2 }') #Same as before
-partitionHardwareID=$(blkid | awk -F'"' 'NR == 4 { print $2 }') #These lines assumes that always the second drive is encrypted
+partitionLuskID=$(blkid | grep "$DISK" | awk -F'"' '{ print $2 }') #Same as before
+partitionHardwareID=$(blkid | grep "$DISK" | awk -F'"' '{ print $2 }') #These lines assumes that always the second drive is encrypted
 
 
 #sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionLuskID:cryptlvm root=UUID=$partitionHardwareID/" /mnt/etc/default/grub
