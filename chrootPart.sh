@@ -153,11 +153,11 @@ then
     cd /home/"$User"/.config
     git clone https://github.com/CarlosR759/mydotfiles .
     cp /etc/X11/xinit/xinitrc /home/"$User"/.xinitrc
-    sed -i 's/^$twm &//' /home/"$User"/.xinitrc
-    sed -i 's/^$xclock -geometry 50x50-1+1 &//' /home/"$User"/.xinitrc
-    sed -i 's/^$xterm -geometry 80x50+494+51 &//' /home/"$User"/.xinitrc
-    sed -i 's/^$xterm -geometry 80x20+494-0 &//' /home/"$User"/.xinitrc
-    sed -i 's/^exec $xterm -geometry 80x66+0+0 -name login//' /home/"$User"/.xinitrc
+    sed -i 's/^"$twm" &//' /home/"$User"/.xinitrc
+    sed -i 's/^"$xclock" -geometry 50x50-1+1 &//' /home/"$User"/.xinitrc
+    sed -i 's/^"$xterm" -geometry 80x50+494+51 &//' /home/"$User"/.xinitrc
+    sed -i 's/^"$xterm" -geometry 80x20+494-0 &//' /home/"$User"/.xinitrc
+    sed -i 's/^exec "$xterm" -geometry 80x66+0+0 -name login//' /home/"$User"/.xinitrc
     cd /home/"$User"
     wget -O ~/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
     git clone https://github.com/CarlosR759/wallpapers
@@ -246,5 +246,6 @@ fi
 systemctl enable ufw
 ufw default deny incoming
 ufw default allow outgoing
+ufw enable
 rm -rf /chrootPart.sh
 exit
