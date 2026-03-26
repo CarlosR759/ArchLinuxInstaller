@@ -203,7 +203,7 @@ then
     wget -O /home/"$User"/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
 
     #Installing my eww bar
-    pacman -S rustup --noconfirm
+    pacman -S rustup gtk-layer-shell libdbusmenu-gtk3 libdbusmenu-glib gtk3 --noconfirm
     git clone https://github.com/elkowar/eww
     cd eww
     cargo build --release --no-default-features --features=wayland
@@ -228,7 +228,7 @@ then
     wget -O /home/root/.bashrc https://raw.githubusercontent.com/CarlosR759/bashrc/main/bashrc
 
     #Installing my eww bar
-    pacman -S rustup --noconfirm
+    pacman -S rustup gtk-layer-shell libdbusmenu-gtk3 libdbusmenu-glib gtk3 --noconfirm
     git clone https://github.com/elkowar/eww
     cd eww
     cargo build --release --no-default-features --features=wayland
