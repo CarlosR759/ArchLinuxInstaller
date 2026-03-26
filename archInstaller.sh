@@ -38,12 +38,12 @@ if [[ "${DesktopsAnswer,,}" =~ ^(y|yes)$ ]]
 then
     read -r -p "Do you want to add many desktops ? write yes or no: " ManyDesktopsAnswer
     echo
-    if [[ "${ManyDeskAnswer,,}" =~ ^(y|yes)$ ]]
+    if [[ "${ManyDesktopsAnswer,,}" =~ ^(y|yes)$ ]]
     then
         read -r -p "Do you want to install all Desktops available in the script ? write yes or no: " AllDesktopsAnswer
         echo
     fi
-    if [[ "${ManyDeskAnswer,,}" =~ ^(n|no)$ ]]
+    if [[ "${ManyDesktopsAnswer,,}" =~ ^(n|no)$ ]]
     then
         read -r -p "Do you want to install just one desktop ? write yes or no: " OneDesktopAnswer
         echo

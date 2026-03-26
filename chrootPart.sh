@@ -3,7 +3,7 @@
 DISK="$1"
 encryptFlag="$2"
 WMAnswer="$3"
-DesktopAnswer="$4"
+DesktopsAnswer="$4"
 AllDesktopsAnswer="$5"
 OneDesktopAnswer="$6"
 Password='0'
@@ -237,7 +237,7 @@ then
 fi
 
 #Desktops installation section
-if [[ "${desktopAnswer,,}" =~ ^(y|yes)$ ]]
+if [[ "${DesktopsAnswer,,}" =~ ^(y|yes)$ ]]
 then
     read -r -p "Do you want to install KDE desktop ? Write yes or no: " KdeAnswer
     echo
