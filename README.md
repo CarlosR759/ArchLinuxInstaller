@@ -15,7 +15,7 @@
 ## Prerequisites
 
 Arch linux iso running in your computer and a clean drive to work with it. That's all
-
+Also please read all this readme file first before doing something ^^ ! 
 
 ## Features
 
@@ -37,6 +37,65 @@ Arch linux iso running in your computer and a clean drive to work with it. That'
 - And all the stuff needed for a basic Arch Linux installation!
 
 ## Usage
+
+This scripts demands to have your SDD or HDD without any created partitions, so you will need to erase them. So after booting the arch iso you will need to do that if you are using an used drive or something new but that comes with an preinstalled OS. 
+
+To do that for SSD is a little bit tricky, because SSD have different commands to do it, ones with format and some others with sanitize.
+Also SATA SSD have another way to do it.
+
+If you want to be lazzy, most probably if you have a normal grade SSD NVME drive, then one of the following commands will work: 
+
+```
+nvme format /dev/nvme0 -s 1 -n 0xffffffff
+```
+
+```
+nvme format /dev/nvme0 -s 2 -n 0xffffffff
+```
+
+But I highly recomend to check this first: https://wiki.archlinux.org/title/Solid_state_drive/Memory_cell_clearing#NVMe_drive and understand what you are doing in the commands, also you if by some reason SSD NVME only supports sanitize then you will need to read the part for that: https://wiki.archlinux.org/title/Solid_state_drive/Memory_cell_clearing#Sanitize_command
+
+
+For SSD SATA based drives, you can know how to erase the partitions reading this: https://wiki.archlinux.org/title/Securely_wipe_disk#hdparm
+
+But also you can use 
+
+```
+fdisk /dev/yourDriveYouWantToDelete
+```
+
+and press d and delete the partitions, then after deleting probably the both partitions, press w to write and quit.
+
+> [!IMPORTANT]
+> - Deleting with the fdisk methods works for all devices, is probably the most easy way to go no matter if you are using SSD SATA, SSD NVME or HDD. Because in practice you are just destroying the partitions inside the drive. The other methods assure that complete deletion of all remaning data occours, fdisk one doesn't. So in tldr: Just pick your poison and carry on.
+
+
+For HDD you can use the fdisk approach but if you want to delete everything you just can go with: 
+
+```
+dd if=/dev/zero of=/dev/sdX bs=4096 status=progress
+```
+
+More info about HDD over here also: https://wiki.archlinux.org/title/Securely_wipe_disk#dd
+
+After deleting the partions you can do 
+
+```
+sync
+```
+
+To update the current state of drives into your Arch Linux iso, and check it with 
+
+```
+lsblk
+```
+
+To see if there are deleted.
+
+> [!NOTE]
+> - If by some reason you still see that after lsblk the partition still exists, you could just reboot the system and check again if those exists. Some times it does happens that the iso booting doesn't catch the info, more if you don't do the sync command, but in practice you can just go and launch the script without rebooting the system. But if you want to be sure 100% and want to avoid any bugs, just reboot.
+
+### Using the script
 
 After launching Arch iso and have access to shell, you will need to update the repos database and install git
 
