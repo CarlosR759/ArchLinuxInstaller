@@ -409,8 +409,8 @@ cp /root/ArchLinuxInstaller/chrootPart.sh /mnt/chrootPart.sh
 arch-chroot /mnt /chrootPart.sh "$DISK" "$encryptFlag" "$WMAnswer" "$DesktopsAnswer" "$AllDesktopsAnswer" "$OneDesktopAnswer"
 
 #Setting up lusk partition for booting up
-partitionLuskID=$(blkid | grep "$DISK" | awk -F'"' '{ print $2 }') #Same as before
-partitionHardwareID=$(blkid | grep "$DISK" | awk -F'"' '{ print $2 }') #These lines assumes that always the second drive is encrypted
+partitionLuskID=$(blkid | grep "$DISK" | sort -hr | awk -F'"' '{ print $2 }' | head -n1)
+partitionHardwareID=$(blkid | grep "$DISK" | sort -hr |  awk -F'"' '{ print $2 }' | head -n1)
 
 
 #sed -i "/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/\(\".*\"\)/\1 cryptdevices=UUID=$partitionLuskID:cryptlvm root=UUID=$partitionHardwareID/" /mnt/etc/default/grub
