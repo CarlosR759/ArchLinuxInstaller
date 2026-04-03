@@ -4,7 +4,6 @@ DISK="$1"
 encryptFlag="$2"
 WMAnswer="$3"
 DesktopsAnswer="$4"
-AllDesktopsAnswer="$5"
 OneDesktopAnswer="$6"
 Password='0'
 answer='no'
